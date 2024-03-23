@@ -1,5 +1,5 @@
 <template>
-  <img src="../assets/images/snakeLogo.png" alt="snake logo" width="250" />
+  <img src="../assets/images/snakeLogo.png" alt="snake logo" width="220" />
 </template>
 
 <script setup lang="ts"></script>
