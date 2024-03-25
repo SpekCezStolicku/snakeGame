@@ -1,56 +1,29 @@
 <template>
   <section id="board" class="text-center w-[620px] h-[620px] my-20">
-    <div
-      v-for="(segment, index) in snakePosition"
-      :key="`segment-${index}`"
-      class="snake-segment"
-      :style="{ gridColumnStart: segment.x, gridRowStart: segment.y }"
-    >
-      <img
-        :src="`/src/assets/images/${getSegmentImage(index)}.png`"
-        alt="Snake Segment"
-        :class="index === 0 ? 'snake-head' : ''"
-      />
-    </div>
+    <Snake />
+    <GameLoot :position="getRandomPosition" />
   </section>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
-import type { Ref } from 'vue'
+import Snake from './Snake.vue'
+import GameLoot from './GameLoot.vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { useGameStore } from '@/store/gameSettings'
 
-type Position = {
+const gameStore = useGameStore()
+
+// TYPES
+export type Position = {
   x: number
   y: number
 }
-const level: Ref<number> = ref(1)
-const gameSpeed: Ref<number> = ref(500 / level.value)
-let snakePosition = ref<Position[]>([
-  { x: 16, y: 16 },
-  { x: 16, y: 17 },
-  { x: 16, y: 18 }
-])
 
-// GET IMAGES
-const head = 'snakeHead'
-const body = 'snakeBody'
-const tail = 'snakeTail'
+const currentSpeed = computed(() => gameStore.gameSpeed / gameStore.level)
 
-function getSegmentImage(index: number) {
-  if (index === 0) {
-    return head
-  } else if (index === snakePosition.value.length - 1) {
-    return tail
-  } else {
-    return body
-  }
-}
-
-// DIRECTION AND MOVES
-const direction = ref('UP')
-
+// KEYBOARD EVENTS
 function handleKeydown(event: KeyboardEvent) {
-  const keyDirectionMap: { [key: string]: string } = {
+  const keyDirectionMap: { [key: string]: 'UP' | 'DOWN' | 'LEFT' | 'RIGHT' } = {
     ArrowUp: 'UP',
     ArrowDown: 'DOWN',
     ArrowLeft: 'LEFT',
@@ -59,38 +32,51 @@ function handleKeydown(event: KeyboardEvent) {
 
   const newDirection = keyDirectionMap[event.key as keyof typeof keyDirectionMap]
   if (newDirection) {
-    direction.value = newDirection
+    gameStore.setDirection(newDirection)
   }
 }
 
-function moveSnake() {
-  const newPosition = { ...snakePosition.value[0] }
+// LOOT SPAWN AND LOGIC
+type Fruit = {
+  name: string
+  image: string
+  score: number
+  position: Position
+}
 
-  switch (direction.value) {
-    case 'UP':
-      newPosition.y -= 1
-      break
-    case 'DOWN':
-      newPosition.y += 1
-      break
-    case 'LEFT':
-      newPosition.x -= 1
-      break
-    case 'RIGHT':
-      newPosition.x += 1
-      break
+const fruits = [
+  { name: 'Apple', image: 'apple', score: 10 },
+  { name: 'Banana', image: 'banana', score: 15 },
+  { name: 'Cherries', image: 'cherries', score: 20 },
+  { name: 'Grape', image: 'grape', score: 25 },
+  { name: 'Lemon', image: 'lemon', score: 30 },
+  { name: 'Peach', image: 'peach', score: 35 },
+  { name: 'Melon', image: 'melon', score: 40 },
+  { name: 'Pineapple', image: 'pineapple', score: 45 },
+  { name: 'Strawberry', image: 'strawberry', score: 50 }
+]
+
+const currentFruit = ref<Fruit | null>(null)
+function getRandomPosition(): Position {
+  return {
+    x: Math.floor(Math.random() * 31) + 1,
+    y: Math.floor(Math.random() * 31) + 1
   }
+}
 
-  snakePosition.value = [newPosition, ...snakePosition.value.slice(0, -1)]
+function spawnFruit() {
+  const fruit = fruits[Math.floor(Math.random() * fruits.length)]
+  currentFruit.value = { ...fruit, position: getRandomPosition() }
 }
 
 onMounted(() => {
   window.addEventListener('keydown', handleKeydown)
-  setInterval(moveSnake, gameSpeed.value)
-})
+  const intervalId = setInterval(() => gameStore.moveSnake(), currentSpeed.value)
 
-onUnmounted(() => {
-  window.removeEventListener('keydown', handleKeydown)
+  onUnmounted(() => {
+    window.removeEventListener('keydown', handleKeydown)
+    clearInterval(intervalId)
+  })
 })
 </script>
 
@@ -109,12 +95,5 @@ onUnmounted(() => {
     0 5px 12px 20px rgba(0, 0, 0, 0.5),
     inset 0 0 0 6px #fff,
     inset 0 0 100vw 100vw beige;
-}
-
-.snake-head {
-  width: 35px;
-  position: absolute;
-  transform: translate(-23%, -50%);
-  z-index: 10;
 }
 </style>
