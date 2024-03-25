@@ -11,18 +11,22 @@ import GameLoot from './GameLoot.vue'
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useGameStore } from '@/store/gameSettings'
 
-const gameStore = useGameStore()
-
 // TYPES
 export type Position = {
   x: number
   y: number
 }
 
+const gameStore = useGameStore()
 const currentSpeed = computed(() => gameStore.gameSpeed / gameStore.level)
 
 // KEYBOARD EVENTS
 function handleKeydown(event: KeyboardEvent) {
+  if (!gameStore.gameStarted) {
+    gameStore.isGameStarted()
+    startGame()
+    return
+  }
   const keyDirectionMap: { [key: string]: 'UP' | 'DOWN' | 'LEFT' | 'RIGHT' } = {
     ArrowUp: 'UP',
     ArrowDown: 'DOWN',
@@ -69,14 +73,26 @@ function spawnFruit() {
   currentFruit.value = { ...fruit, position: getRandomPosition() }
 }
 
-onMounted(() => {
-  window.addEventListener('keydown', handleKeydown)
-  const intervalId = setInterval(() => gameStore.moveSnake(), currentSpeed.value)
+function startGame() {
+  const intervalId = setInterval(() => {
+    if (gameStore.gameStarted) {
+      gameStore.moveSnake()
+    } else {
+      clearInterval(intervalId)
+    }
+  }, currentSpeed.value)
 
   onUnmounted(() => {
-    window.removeEventListener('keydown', handleKeydown)
     clearInterval(intervalId)
   })
+}
+
+onMounted(() => {
+  window.addEventListener('keydown', handleKeydown)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', handleKeydown)
 })
 </script>
 
