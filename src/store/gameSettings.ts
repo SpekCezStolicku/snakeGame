@@ -39,6 +39,16 @@ export const useGameStore = defineStore('game', {
           newPosition.x += 1
           break
       }
+      // BORDER PLAYGROUND COLLISION
+      if (
+        newPosition.x < 1 ||
+        newPosition.x > this.playground.xTiles ||
+        newPosition.y < 1 ||
+        newPosition.y > this.playground.yTiles
+      ) {
+        alert('Game over!')
+        return
+      }
 
       this.snakePosition = [
         newPosition,
