@@ -3,7 +3,6 @@
   <div
     v-for="(segment, index) in snakePosition"
     :key="`segment-${index}`"
-    class="snake-segment"
     :style="{ gridColumnStart: segment.x, gridRowStart: segment.y }"
   >
     <img
@@ -39,6 +38,7 @@ function getSegmentImage(index: number) {
 
 <style scoped>
 .snake-head {
+  position: absolute;
   width: 35px;
   transform: translate(-23%, -50%);
   z-index: 10;
