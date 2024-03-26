@@ -27,6 +27,7 @@ function handleKeydown(event: KeyboardEvent) {
     startGame()
     return
   }
+
   const keyDirectionMap: { [key: string]: 'UP' | 'DOWN' | 'LEFT' | 'RIGHT' } = {
     ArrowUp: 'UP',
     ArrowDown: 'DOWN',
@@ -34,8 +35,17 @@ function handleKeydown(event: KeyboardEvent) {
     ArrowRight: 'RIGHT'
   }
 
+  const oppositeDirectionMap: {
+    [key in 'UP' | 'DOWN' | 'LEFT' | 'RIGHT']: 'UP' | 'DOWN' | 'LEFT' | 'RIGHT'
+  } = {
+    UP: 'DOWN',
+    DOWN: 'UP',
+    LEFT: 'RIGHT',
+    RIGHT: 'LEFT'
+  }
+
   const newDirection = keyDirectionMap[event.key as keyof typeof keyDirectionMap]
-  if (newDirection) {
+  if (newDirection && gameStore.direction !== oppositeDirectionMap[newDirection]) {
     gameStore.setDirection(newDirection)
   }
 }

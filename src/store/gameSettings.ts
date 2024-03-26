@@ -40,6 +40,7 @@ export const useGameStore = defineStore('game', {
           newPosition.x += 1
           break
       }
+
       // BORDER PLAYGROUND COLLISION
       if (
         newPosition.x < 1 ||
