@@ -1,11 +1,14 @@
 import { defineStore } from 'pinia'
 
+// TYPES
+import type { Direction } from '@/types/types'
+
 export const useGameStore = defineStore('game', {
   state: () => ({
     gameSpeed: 500, // 500 ms - speed increase depends on score
-    level: 1, // points to level of difficulty
-    snakeLength: 3, //Starts with head, body and tail
-    score: 0,
+    level: 1, // Points to level of difficulty
+    snakeLength: 3, // Starts with head, body and tail
+    score: 0, // Current score
     player: '', // Player name
     highscore: [], // TO DO - saving score and name after game into JSON file
     playground: {
@@ -18,7 +21,7 @@ export const useGameStore = defineStore('game', {
       { x: 16, y: 17 }, // BODY
       { x: 16, y: 18 } // TAIL
     ],
-    direction: 'UP' as 'UP' | 'DOWN' | 'LEFT' | 'RIGHT',
+    direction: 'UP' as Direction,
     gameStarted: false
   }),
   actions: {
@@ -57,7 +60,7 @@ export const useGameStore = defineStore('game', {
         ...this.snakePosition.slice(0, this.snakePosition.length - 1)
       ]
     },
-    setDirection(newDirection: 'UP' | 'DOWN' | 'LEFT' | 'RIGHT') {
+    setDirection(newDirection: Direction) {
       this.direction = newDirection
     },
 

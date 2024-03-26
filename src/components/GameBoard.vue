@@ -12,11 +12,9 @@ import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useGameStore } from '@/store/gameSettings'
 
 // TYPES
-export type Position = {
-  x: number
-  y: number
-}
+import type { Direction, Position, Fruit } from '@/types/types'
 
+// STORE
 const gameStore = useGameStore()
 const currentSpeed = computed(() => gameStore.gameSpeed / gameStore.level)
 
@@ -28,15 +26,16 @@ function handleKeydown(event: KeyboardEvent) {
     return
   }
 
-  const keyDirectionMap: { [key: string]: 'UP' | 'DOWN' | 'LEFT' | 'RIGHT' } = {
+  const keyDirectionMap: { [key: string]: Direction } = {
     ArrowUp: 'UP',
     ArrowDown: 'DOWN',
     ArrowLeft: 'LEFT',
     ArrowRight: 'RIGHT'
   }
 
+  // Direction rules
   const oppositeDirectionMap: {
-    [key in 'UP' | 'DOWN' | 'LEFT' | 'RIGHT']: 'UP' | 'DOWN' | 'LEFT' | 'RIGHT'
+    [key in Direction]: Direction
   } = {
     UP: 'DOWN',
     DOWN: 'UP',
@@ -45,19 +44,13 @@ function handleKeydown(event: KeyboardEvent) {
   }
 
   const newDirection = keyDirectionMap[event.key as keyof typeof keyDirectionMap]
+  // Prevent snake going to opposite direction
   if (newDirection && gameStore.direction !== oppositeDirectionMap[newDirection]) {
     gameStore.setDirection(newDirection)
   }
 }
 
 // LOOT SPAWN AND LOGIC
-type Fruit = {
-  name: string
-  image: string
-  score: number
-  position: Position
-}
-
 const fruits = [
   { name: 'Apple', image: 'apple', score: 10 },
   { name: 'Banana', image: 'banana', score: 15 },
