@@ -1,5 +1,5 @@
 <template>
-  <section id="board" class="text-center w-[620px] h-[620px] my-20">
+  <section id="board" class="text-center w-[620px] h-[620px] mb-10 mx-auto">
     <Snake />
     <GameLoot :position="getRandomPosition" />
   </section>

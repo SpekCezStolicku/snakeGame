@@ -1,8 +1,17 @@
 <template>
-  <h1 class="my-10 text-4xl bg-white lvl1 animate-pulse">
+  <h1
+    v-if="!gameStore.gameStarted"
+    class="absolute z-50 text-3xl transform -translate-x-1/2 -translate-y-1/2 bg-white lvl1 animate-pulse top-1/2 left-1/2"
+  >
     Press any <b>key</b> to start the game.
   </h1>
 </template>
+
+<script lang="ts" setup>
+import { useGameStore } from '@/store/gameSettings'
+
+const gameStore = useGameStore()
+</script>
 
 <style scoped>
 .lvl1 {

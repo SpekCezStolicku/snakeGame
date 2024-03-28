@@ -3,7 +3,7 @@ export default {
   content: [],
   theme: {
     screens: {
-      '3xl': '1800px'
+      '3xl': '2800px'
     }
   },
   plugins: [],
