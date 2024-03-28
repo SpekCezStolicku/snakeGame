@@ -23,10 +23,17 @@ export const useGameStore = defineStore('game', {
       { x: 16, y: 18 } // TAIL
     ],
     direction: 'UP' as Direction,
+    nextDirection: null as Direction | null,
     gameStarted: false
   }),
   actions: {
     moveSnake() {
+      // Prevent fast direction switching by keyboard
+      if (this.nextDirection && this.nextDirection !== this.getOppositeDirection(this.direction)) {
+        this.direction = this.nextDirection
+        this.nextDirection = null
+      }
+
       const head = this.snakePosition[0]
       const newPosition = { ...head }
 
@@ -62,7 +69,20 @@ export const useGameStore = defineStore('game', {
       ]
     },
     setDirection(newDirection: Direction) {
-      this.direction = newDirection
+      this.nextDirection = newDirection
+    },
+
+    getOppositeDirection(direction: Direction) {
+      switch (direction) {
+        case 'UP':
+          return 'DOWN'
+        case 'DOWN':
+          return 'UP'
+        case 'LEFT':
+          return 'RIGHT'
+        case 'RIGHT':
+          return 'LEFT'
+      }
     },
 
     isGameStarted() {
