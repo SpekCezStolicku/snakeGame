@@ -2,9 +2,10 @@
 export default {
   content: [],
   theme: {
-    extend: {},
+    screens: {
+      '3xl': '1800px'
+    }
   },
   plugins: [],
-  purge: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
+  purge: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}']
 }
-
