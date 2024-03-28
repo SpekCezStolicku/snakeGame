@@ -10,7 +10,8 @@ export const useGameStore = defineStore('game', {
     snakeLength: 3, // Starts with head, body and tail
     score: 0, // Current score
     player: '', // Player name
-    highscore: [], // TO DO - saving score and name after game into JSON file
+    playerHighscore: parseInt(localStorage.getItem('snakeHighscore') || '0'), //Player's best individual score
+    leaderboard: [], // TO DO - firebase
     playground: {
       xTiles: 31,
       yTiles: 31
@@ -66,6 +67,14 @@ export const useGameStore = defineStore('game', {
 
     isGameStarted() {
       this.gameStarted = !this.gameStarted
+    },
+    // Player highscore logic
+    updateScore(newScore: number) {
+      this.score = newScore
+      if (newScore > this.playerHighscore) {
+        this.playerHighscore = newScore
+        localStorage.setItem('snakeHighscore', newScore.toString())
+      }
     }
   }
 })

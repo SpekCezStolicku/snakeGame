@@ -11,3 +11,8 @@ export type Fruit = {
   score: number
   position: Position
 }
+
+export interface LeaderboardScore {
+  name: string
+  score: number
+}
