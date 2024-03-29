@@ -52,15 +52,15 @@ function handleKeydown(event: KeyboardEvent) {
 
 // LOOT SPAWN AND LOGIC
 const fruits = [
-  { name: 'Apple', image: 'apple', score: 10 },
-  { name: 'Banana', image: 'banana', score: 15 },
-  { name: 'Cherries', image: 'cherries', score: 20 },
-  { name: 'Grape', image: 'grape', score: 25 },
-  { name: 'Lemon', image: 'lemon', score: 30 },
-  { name: 'Peach', image: 'peach', score: 35 },
-  { name: 'Melon', image: 'melon', score: 40 },
-  { name: 'Pineapple', image: 'pineapple', score: 45 },
-  { name: 'Strawberry', image: 'strawberry', score: 50 }
+  { name: 'Apple', image: 'apple', score: 10, bodyIncrease: 0 },
+  { name: 'Banana', image: 'banana', score: 15, bodyIncrease: 1, snakeSpeed: 1 },
+  { name: 'Cherries', image: 'cherries', score: 20, bodyIncrease: 2 },
+  { name: 'Grape', image: 'grape', score: 25, bodyIncrease: 1, snakeSpeed: 2 },
+  { name: 'Lemon', image: 'lemon', score: 30, bodyIncrease: 1, snakeSpeed: 3 },
+  { name: 'Peach', image: 'peach', score: 35, bodyIncrease: 1, snakeSpeed: -2 },
+  { name: 'Melon', image: 'melon', score: 40, bodyIncrease: 3, snakeSpeed: -1 },
+  { name: 'Pineapple', image: 'pineapple', score: 45, bodyIncrease: 2 },
+  { name: 'Strawberry', image: 'strawberry', score: 50, bodyIncrease: 3 }
 ]
 
 const currentFruit = ref<Fruit | null>(null)
