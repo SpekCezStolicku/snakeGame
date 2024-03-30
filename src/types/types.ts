@@ -5,11 +5,12 @@ export type Position = {
   y: number
 }
 
-export type Fruit = {
+export type Loot = {
   name: string
   image: string
   score: number
-  position: Position
+  bodyIncrease: number
+  snakeSpeed?: number
 }
 
 export interface LeaderboardScore {

@@ -1,18 +1,18 @@
 <template>
   <section id="board" class="text-center w-[620px] h-[620px] mb-10 mx-auto">
     <Snake />
-    <GameLoot :position="getRandomPosition" />
+    <GameLoot />
   </section>
 </template>
 
 <script setup lang="ts">
 import Snake from './Snake.vue'
 import GameLoot from './GameLoot.vue'
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { computed, onMounted, onUnmounted } from 'vue'
 import { useGameStore } from '@/store/gameSettings'
 
 // TYPES
-import type { Direction, Position, Fruit } from '@/types/types'
+import type { Direction } from '@/types/types'
 
 // STORE
 const gameStore = useGameStore()
@@ -48,32 +48,6 @@ function handleKeydown(event: KeyboardEvent) {
   if (newDirection && gameStore.direction !== oppositeDirectionMap[newDirection]) {
     gameStore.setDirection(newDirection)
   }
-}
-
-// LOOT SPAWN AND LOGIC
-const fruits = [
-  { name: 'Apple', image: 'apple', score: 10, bodyIncrease: 0 },
-  { name: 'Banana', image: 'banana', score: 15, bodyIncrease: 1, snakeSpeed: 1 },
-  { name: 'Cherries', image: 'cherries', score: 20, bodyIncrease: 2 },
-  { name: 'Grape', image: 'grape', score: 25, bodyIncrease: 1, snakeSpeed: 2 },
-  { name: 'Lemon', image: 'lemon', score: 30, bodyIncrease: 1, snakeSpeed: 3 },
-  { name: 'Peach', image: 'peach', score: 35, bodyIncrease: 1, snakeSpeed: -2 },
-  { name: 'Melon', image: 'melon', score: 40, bodyIncrease: 3, snakeSpeed: -1 },
-  { name: 'Pineapple', image: 'pineapple', score: 45, bodyIncrease: 2 },
-  { name: 'Strawberry', image: 'strawberry', score: 50, bodyIncrease: 3 }
-]
-
-const currentFruit = ref<Fruit | null>(null)
-function getRandomPosition(): Position {
-  return {
-    x: Math.floor(Math.random() * 31) + 1,
-    y: Math.floor(Math.random() * 31) + 1
-  }
-}
-
-function spawnFruit() {
-  const fruit = fruits[Math.floor(Math.random() * fruits.length)]
-  currentFruit.value = { ...fruit, position: getRandomPosition() }
 }
 
 function startGame() {
