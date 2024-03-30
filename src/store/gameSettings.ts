@@ -16,6 +16,7 @@ export const useGameStore = defineStore('game', {
       xTiles: 31,
       yTiles: 31
     },
+    tileSize: 20, // Size in px
     snakePosition: [
       // Start position default in center
       { x: 16, y: 16 }, // HEAD
