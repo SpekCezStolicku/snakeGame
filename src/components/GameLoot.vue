@@ -1,13 +1,15 @@
 <template>
   <div>
-    <img :src="`/src/assets/images/loot/cherries.png`" alt="Loot" class="loot" />
+    <img
+      :src="`/src/assets/images/loot/cherries.png`"
+      alt="Loot"
+      :style="{ width: `${gameStore.tileSize}px` }"
+    />
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useGameStore } from '@/store/gameSettings'
 
-<style scoped>
-.loot {
-  width: 20px;
-}
-</style>
+const gameStore = useGameStore()
+</script>

@@ -1,5 +1,8 @@
 <template>
-  <div class="flex items-center justify-between w-[620px] scoreboard mb-6 text-2xl mx-auto">
+  <div
+    class="flex items-center justify-between scoreboard mb-6 text-2xl mx-auto"
+    :style="{ width: `${gameStore.tileSize * gameStore.playground.xTiles}px` }"
+  >
     <h1>
       Score: <b>{{ gameStore.score }}</b>
     </h1>

@@ -1,5 +1,12 @@
 <template>
-  <section id="board" class="text-center w-[620px] h-[620px] mb-10 mx-auto">
+  <section
+    id="board"
+    class="mx-auto mb-10 text-center"
+    :style="{
+      width: `${gameStore.tileSize * gameStore.playground.xTiles}px`,
+      height: `${gameStore.tileSize * gameStore.playground.yTiles}px`
+    }"
+  >
     <Snake />
     <GameLoot />
   </section>
