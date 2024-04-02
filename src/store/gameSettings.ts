@@ -36,7 +36,8 @@ export const useGameStore = defineStore('game', {
       { name: 'Pineapple', image: 'pineapple', score: 45, bodyIncrease: 2 },
       { name: 'Strawberry', image: 'strawberry', score: 50, bodyIncrease: 3 }
     ] as Loot[],
-    gameStarted: false
+    gameStarted: false,
+    isGameOver: false
   }),
   actions: {
     moveSnake() {
@@ -71,7 +72,7 @@ export const useGameStore = defineStore('game', {
         newPosition.y < 1 ||
         newPosition.y > this.playground.yTiles
       ) {
-        alert('Game over!')
+        this.gameOver()
         return
       }
 
@@ -107,6 +108,10 @@ export const useGameStore = defineStore('game', {
         this.playerHighscore = newScore
         localStorage.setItem('snakeHighscore', newScore.toString())
       }
+    },
+    gameOver() {
+      this.isGameOver = true
+      console.log('Game Over')
     }
   }
 })
