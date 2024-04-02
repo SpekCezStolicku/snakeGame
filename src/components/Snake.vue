@@ -5,11 +5,7 @@
     :key="`segment-${index}`"
     :style="getSegmentStyle(segment, index)"
   >
-    <img
-      :src="`/src/assets/images/${getSegmentImage(index)}.png`"
-      alt="Snake Segment"
-      :class="index === 0 ? 'snake-head' : ''"
-    />
+    <img :src="`/src/assets/images/${getSegmentImage(index)}.png`" alt="Snake Segment" />
   </div>
 </template>
 
@@ -22,9 +18,9 @@ const gameStore = useGameStore()
 
 const snakePosition = computed(() => gameStore.snakePosition)
 
-const head = 'snakeHead'
-const body = 'snakeBody'
-const tail = 'snakeTail'
+const head = 'head'
+const body = 'body'
+const tail = 'tail'
 
 function getSegmentImage(index: number) {
   if (index === 0) {
@@ -62,13 +58,3 @@ function getSegmentStyle(segment: Position, index: number) {
   }
 }
 </script>
-
-<style scoped>
-.snake-head {
-  position: absolute;
-  width: 35px;
-  transform: translate(-23%, -50%);
-  z-index: 10;
-  max-width: none;
-}
-</style>
