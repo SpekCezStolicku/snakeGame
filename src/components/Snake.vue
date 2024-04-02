@@ -44,7 +44,7 @@ function getSegmentStyle(segment: Position, index: number) {
         rotation = 90
         break
       case 'DOWN':
-        rotation = 180
+        rotation = -180
         break
       case 'LEFT':
         rotation = -90
@@ -52,8 +52,8 @@ function getSegmentStyle(segment: Position, index: number) {
     }
   }
   return {
-    gridColumnStart: segment.x,
-    gridRowStart: segment.y,
+    gridColumnStart: segment.x != null ? segment.x : '',
+    gridRowStart: segment.y != null ? segment.y : '',
     transform: `rotate(${rotation}deg)`
   }
 }

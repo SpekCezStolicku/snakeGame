@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 
 // TYPES
-import type { Direction, Loot } from '@/types/types'
+import type { Direction, Loot, Position } from '@/types/types'
 
 export const useGameStore = defineStore('game', {
   state: () => ({
@@ -36,6 +36,8 @@ export const useGameStore = defineStore('game', {
       { name: 'Pineapple', image: 'pineapple', score: 45, bodyIncrease: 2 },
       { name: 'Strawberry', image: 'strawberry', score: 50, bodyIncrease: 3 }
     ] as Loot[],
+    currentLootPosition: { x: null, y: null } as Position,
+    currentLoot: null as Loot | null,
     gameStarted: false,
     isGameOver: false
   }),
@@ -73,7 +75,9 @@ export const useGameStore = defineStore('game', {
         newPosition.y > this.playground.yTiles
       ) {
         this.gameOver()
-        return
+        if (this.isGameOver) {
+          return
+        }
       }
 
       this.snakePosition = [
@@ -106,8 +110,14 @@ export const useGameStore = defineStore('game', {
       this.score = newScore
       if (newScore > this.playerHighscore) {
         this.playerHighscore = newScore
-        localStorage.setItem('snakeHighscore', newScore.toString())
+        if (this.isGameOver) localStorage.setItem('snakeHighscore', newScore.toString())
       }
+    },
+    getRandomLoot() {
+      this.currentLootPosition.x = Math.floor(Math.random() * this.playground.xTiles) + 1
+      this.currentLootPosition.y = Math.floor(Math.random() * this.playground.yTiles) + 1
+      const index = Math.floor(Math.random() * this.loot.length)
+      this.currentLoot = this.loot[index]
     },
     gameOver() {
       this.isGameOver = true

@@ -1,11 +1,14 @@
 <template>
-  <div>
-    <img
-      :src="`/src/assets/images/loot/cherries.png`"
-      alt="Loot"
-      :style="{ width: `${gameStore.tileSize}px` }"
-    />
-  </div>
+  <img
+    v-if="gameStore.currentLoot !== null"
+    :src="`/src/assets/images/loot/${gameStore.currentLoot.image}.png`"
+    alt="Loot"
+    :style="{
+      width: `${gameStore.tileSize}px`,
+      gridColumnStart: `${gameStore.currentLootPosition.x}`,
+      gridRowStart: `${gameStore.currentLootPosition.y}`
+    }"
+  />
 </template>
 
 <script setup lang="ts">
