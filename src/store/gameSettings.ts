@@ -67,6 +67,7 @@ export const useGameStore = defineStore('game', {
           break
       }
 
+      // Borders check
       if (
         newPosition.x < 1 ||
         newPosition.x > this.playground.xTiles ||
@@ -79,16 +80,32 @@ export const useGameStore = defineStore('game', {
 
         if (this.isSnakeOnLoot()) {
           this.updateScore(this.score + this.currentLoot!.score)
-
-          if (this.currentLoot!.bodyIncrease > 0) {
-            this.snakeLength += this.currentLoot!.bodyIncrease
-          }
-
+          this.snakeLength += this.currentLoot!.bodyIncrease
           this.getRandomLoot()
+        } else if (
+          this.snakePosition
+            .slice(1)
+            .some((segment) => segment.x === newPosition.x && segment.y === newPosition.y)
+        ) {
+          // Snake segment collision
+          const segmentIndex = this.snakePosition.findIndex(
+            (segment, index) =>
+              index !== 0 && segment.x === newPosition.x && segment.y === newPosition.y
+          )
+          if (segmentIndex > 0) {
+            const segmentsRemoved = this.snakePosition.length - segmentIndex
+            this.snakePosition = this.snakePosition.slice(0, segmentIndex)
+            this.snakeLength = segmentIndex
+            this.updateScore(this.score - 50 * segmentsRemoved) // -50 points for every segment
+          }
         }
 
         if (this.snakePosition.length > this.snakeLength) {
           this.snakePosition.pop()
+        }
+
+        if (this.score < 0) {
+          this.gameOver()
         }
       }
     },
