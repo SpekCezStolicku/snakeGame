@@ -121,10 +121,25 @@ export const useGameStore = defineStore('game', {
       }
     },
     getRandomLoot() {
-      this.currentLootPosition.x = getRandomNumber(this.playground.xTiles, 1)
-      this.currentLootPosition.y = getRandomNumber(this.playground.yTiles, 1)
-      const index = getRandomNumber(this.loot.length - 1)
-      this.currentLoot = this.loot[index]
+      let randomX: number, randomY: number
+      let attempts = 0
+      do {
+        randomX = getRandomNumber(this.playground.xTiles, 1)
+        randomY = getRandomNumber(this.playground.yTiles, 1)
+        attempts++
+        // 100 random attempts to create loot on free tile
+        if (attempts >= 100) {
+          console.log('No room for loot')
+          break
+        }
+      } while (this.snakePosition.some((segment) => segment.x === randomX && segment.y === randomY))
+
+      if (attempts <= 100) {
+        this.currentLootPosition.x = randomX
+        this.currentLootPosition.y = randomY
+        const index = getRandomNumber(0, this.loot.length - 1)
+        this.currentLoot = this.loot[index]
+      }
     },
     isSnakeOnLoot() {
       const head = this.snakePosition[0]
