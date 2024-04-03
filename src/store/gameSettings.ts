@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { getRandomNumber } from '@/utils/utils'
 
 // TYPES
 import type { Direction, Loot, Position } from '@/types/types'
@@ -114,9 +115,9 @@ export const useGameStore = defineStore('game', {
       }
     },
     getRandomLoot() {
-      this.currentLootPosition.x = Math.floor(Math.random() * this.playground.xTiles) + 1
-      this.currentLootPosition.y = Math.floor(Math.random() * this.playground.yTiles) + 1
-      const index = Math.floor(Math.random() * this.loot.length)
+      this.currentLootPosition.x = getRandomNumber(this.playground.xTiles, 1)
+      this.currentLootPosition.y = getRandomNumber(this.playground.yTiles, 1)
+      const index = getRandomNumber(this.loot.length)
       this.currentLoot = this.loot[index]
     },
     gameOver() {

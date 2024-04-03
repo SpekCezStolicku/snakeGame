@@ -1,7 +1,7 @@
 <template>
   <h1
     v-if="!gameStore.gameStarted"
-    class="absolute z-50 text-3xl transform -translate-x-1/2 -translate-y-1/2 bg-white lvl1 animate-pulse top-1/2 left-1/2"
+    class="absolute z-50 text-3xl transform -translate-x-1/2 -translate-y-1/2 bg-white px-border animate-pulse top-1/2 left-1/2"
   >
     Press any <b>key</b> to start the game.
   </h1>
@@ -14,7 +14,7 @@ const gameStore = useGameStore()
 </script>
 
 <style scoped>
-.lvl1 {
+.px-border {
   box-shadow:
     16px 0 white,
     -16px 0 white,
