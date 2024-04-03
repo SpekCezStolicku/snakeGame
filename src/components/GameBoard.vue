@@ -1,7 +1,7 @@
 <template>
   <section
     id="board"
-    class="mx-auto mb-10 text-center z-0"
+    class="mx-auto mb-10 text-center z-0 place-items-center"
     :style="{
       width: `${gameStore.tileSize * gameStore.playground.xTiles}px`,
       height: `${gameStore.tileSize * gameStore.playground.yTiles}px`,
@@ -60,6 +60,7 @@ function handleKeydown(event: KeyboardEvent) {
 }
 
 function startGame() {
+  gameStore.getRandomLoot()
   const intervalId = setInterval(() => {
     if (gameStore.gameStarted) {
       gameStore.moveSnake()
@@ -87,6 +88,7 @@ onUnmounted(() => {
   display: grid;
   background: #80d5a6;
   border: 5px dashed var(--green);
+  box-sizing: content-box;
   box-shadow:
     0 0 0 2.5px #226741,
     0 0 0 12.5px var(--white),

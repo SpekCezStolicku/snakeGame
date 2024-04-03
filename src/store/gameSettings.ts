@@ -6,7 +6,7 @@ import type { Direction, Loot, Position } from '@/types/types'
 
 export const useGameStore = defineStore('game', {
   state: () => ({
-    gameSpeed: 500, // 500 ms - speed increase depends on score
+    gameSpeed: 50, // 500 ms - speed increase depends on score
     level: 1, // Points to level of difficulty
     snakeLength: 3, // Starts with head, body and tail
     score: 0, // Current score
@@ -32,7 +32,7 @@ export const useGameStore = defineStore('game', {
       { name: 'Cherries', image: 'cherries', score: 20, bodyIncrease: 2 },
       { name: 'Grape', image: 'grape', score: 25, bodyIncrease: 1, snakeSpeed: 2 },
       { name: 'Lemon', image: 'lemon', score: 30, bodyIncrease: 1, snakeSpeed: 3 },
-      { name: 'Peach', image: 'peach', score: 35, bodyIncrease: 1, snakeSpeed: -2 },
+      { name: 'Peach', image: 'peach', score: 35, bodyIncrease: 1, snakeSpeed: -1 },
       { name: 'Melon', image: 'melon', score: 40, bodyIncrease: 3, snakeSpeed: -1 },
       { name: 'Pineapple', image: 'pineapple', score: 45, bodyIncrease: 2 },
       { name: 'Strawberry', image: 'strawberry', score: 50, bodyIncrease: 3 }
@@ -44,7 +44,6 @@ export const useGameStore = defineStore('game', {
   }),
   actions: {
     moveSnake() {
-      // Prevent fast direction switching by keyboard
       if (this.nextDirection && this.nextDirection !== this.getOppositeDirection(this.direction)) {
         this.direction = this.nextDirection
         this.nextDirection = null
@@ -68,7 +67,6 @@ export const useGameStore = defineStore('game', {
           break
       }
 
-      // BORDER PLAYGROUND COLLISION
       if (
         newPosition.x < 1 ||
         newPosition.x > this.playground.xTiles ||
@@ -76,15 +74,23 @@ export const useGameStore = defineStore('game', {
         newPosition.y > this.playground.yTiles
       ) {
         this.gameOver()
-        if (this.isGameOver) {
-          return
+      } else {
+        this.snakePosition.unshift(newPosition)
+
+        if (this.isSnakeOnLoot()) {
+          this.updateScore(this.score + this.currentLoot!.score)
+
+          if (this.currentLoot!.bodyIncrease > 0) {
+            this.snakeLength += this.currentLoot!.bodyIncrease
+          }
+
+          this.getRandomLoot()
+        }
+
+        if (this.snakePosition.length > this.snakeLength) {
+          this.snakePosition.pop()
         }
       }
-
-      this.snakePosition = [
-        newPosition,
-        ...this.snakePosition.slice(0, this.snakePosition.length - 1)
-      ]
     },
     setDirection(newDirection: Direction) {
       this.nextDirection = newDirection
@@ -117,8 +123,12 @@ export const useGameStore = defineStore('game', {
     getRandomLoot() {
       this.currentLootPosition.x = getRandomNumber(this.playground.xTiles, 1)
       this.currentLootPosition.y = getRandomNumber(this.playground.yTiles, 1)
-      const index = getRandomNumber(this.loot.length)
+      const index = getRandomNumber(this.loot.length - 1)
       this.currentLoot = this.loot[index]
+    },
+    isSnakeOnLoot() {
+      const head = this.snakePosition[0]
+      return this.currentLootPosition.x === head.x && this.currentLootPosition.y === head.y
     },
     gameOver() {
       this.isGameOver = true

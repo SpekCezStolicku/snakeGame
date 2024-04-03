@@ -3,8 +3,10 @@
     v-if="gameStore.currentLoot !== null"
     :src="`/src/assets/images/loot/${gameStore.currentLoot.image}.png`"
     alt="Loot"
+    class="object-cover"
     :style="{
-      width: `${gameStore.tileSize}px`,
+      maxWidth: `${gameStore.tileSize}px`,
+      maxHeight: `${gameStore.tileSize}px`,
       gridColumnStart: `${gameStore.currentLootPosition.x}`,
       gridRowStart: `${gameStore.currentLootPosition.y}`
     }"
