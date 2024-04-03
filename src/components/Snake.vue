@@ -5,7 +5,11 @@
     :key="`segment-${index}`"
     :style="getSegmentStyle(segment, index)"
   >
-    <img :src="`/src/assets/images/${getSegmentImage(index)}.png`" alt="Snake Segment" />
+    <img
+      :src="`/src/assets/images/${getSegmentImage(index)}.png`"
+      alt="Snake Segment"
+      :width="gameStore.tileSize"
+    />
   </div>
 </template>
 

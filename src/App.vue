@@ -14,7 +14,13 @@ import ScoreBoard from '@/components/ScoreBoard.vue'
   </main>
 </template>
 
-<style scoped>
+<style>
+:root {
+  --burlywood: #deb887;
+  --white: white;
+  --green: #3cb371;
+  --orange: #c58612;
+}
 main {
   margin: auto;
   padding: 0;

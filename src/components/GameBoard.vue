@@ -1,10 +1,12 @@
 <template>
   <section
     id="board"
-    class="mx-auto mb-10 text-center"
+    class="mx-auto mb-10 text-center z-0"
     :style="{
       width: `${gameStore.tileSize * gameStore.playground.xTiles}px`,
-      height: `${gameStore.tileSize * gameStore.playground.yTiles}px`
+      height: `${gameStore.tileSize * gameStore.playground.yTiles}px`,
+      gridTemplateColumns: `repeat(${gameStore.playground.xTiles}, ${gameStore.tileSize}px)`,
+      gridTemplateRows: `repeat(${gameStore.playground.yTiles}, ${gameStore.tileSize}px)`
     }"
   >
     <Snake />
@@ -83,17 +85,14 @@ onUnmounted(() => {
 <style scoped>
 #board {
   display: grid;
-  z-index: 0;
-  grid-template-columns: repeat(31, 20px);
-  grid-template-rows: repeat(31, 20px);
   background: #80d5a6;
-  border: 5px dashed mediumseagreen;
+  border: 5px dashed var(--green);
   box-shadow:
     0 0 0 2.5px #226741,
-    0 0 0 12.5px #fff,
+    0 0 0 12.5px var(--white),
     inset 0 0 0 2.5px #226741,
     0 5px 12px 20px rgba(0, 0, 0, 0.5),
-    inset 0 0 0 6px #fff,
+    inset 0 0 0 6px var(--white),
     inset 0 0 100vw 100vw beige;
 }
 </style>
