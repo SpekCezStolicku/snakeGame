@@ -6,7 +6,8 @@ import type { Direction, Loot, Position } from '@/types/types'
 
 export const useGameStore = defineStore('game', {
   state: () => ({
-    gameSpeed: 50, // 500 ms - speed increase depends on score
+    gameSpeed: 250, // 250 ms - speed increase depends on score
+    currentSpeed: 250,
     level: 1, // Points to level of difficulty
     snakeLength: 3, // Starts with head, body and tail
     score: 0, // Current score
@@ -28,14 +29,14 @@ export const useGameStore = defineStore('game', {
     nextDirection: null as Direction | null,
     loot: [
       { name: 'Apple', image: 'apple', score: 10, bodyIncrease: 0 },
-      { name: 'Banana', image: 'banana', score: 15, bodyIncrease: 1, snakeSpeed: 1 },
-      { name: 'Cherries', image: 'cherries', score: 20, bodyIncrease: 2 },
-      { name: 'Grape', image: 'grape', score: 25, bodyIncrease: 1, snakeSpeed: 2 },
-      { name: 'Lemon', image: 'lemon', score: 30, bodyIncrease: 1, snakeSpeed: 3 },
-      { name: 'Peach', image: 'peach', score: 35, bodyIncrease: 1, snakeSpeed: -1 },
-      { name: 'Melon', image: 'melon', score: 40, bodyIncrease: 3, snakeSpeed: -1 },
-      { name: 'Pineapple', image: 'pineapple', score: 45, bodyIncrease: 2 },
-      { name: 'Strawberry', image: 'strawberry', score: 50, bodyIncrease: 3 }
+      { name: 'Banana', image: 'banana', score: 20, bodyIncrease: 1, snakeSpeed: 10 },
+      { name: 'Cherries', image: 'cherries', score: 30, bodyIncrease: 2 },
+      { name: 'Grape', image: 'grape', score: 40, bodyIncrease: 1, snakeSpeed: 20 },
+      { name: 'Lemon', image: 'lemon', score: 50, bodyIncrease: 1, snakeSpeed: 30 },
+      { name: 'Peach', image: 'peach', score: 60, bodyIncrease: 1, snakeSpeed: -10 },
+      { name: 'Melon', image: 'melon', score: 70, bodyIncrease: 3, snakeSpeed: -10 },
+      { name: 'Pineapple', image: 'pineapple', score: 80, bodyIncrease: 2 },
+      { name: 'Strawberry', image: 'strawberry', score: 90, bodyIncrease: 3 }
     ] as Loot[],
     currentLootPosition: { x: null, y: null } as Position,
     currentLoot: null as Loot | null,
@@ -132,9 +133,19 @@ export const useGameStore = defineStore('game', {
     // Player highscore logic
     updateScore(newScore: number) {
       this.score = newScore
+
+      // Level up every 500 points
+      const newLevel = Math.floor(this.score / 500) + 1
+      if (newLevel > this.level) {
+        this.level = newLevel
+        this.currentSpeed = Math.max(this.gameSpeed - this.gameSpeed * 0.1 * (this.level - 1), 60)
+      }
+
       if (newScore > this.playerHighscore) {
         this.playerHighscore = newScore
-        if (this.isGameOver) localStorage.setItem('snakeHighscore', newScore.toString())
+        if (this.isGameOver) {
+          localStorage.setItem('snakeHighscore', newScore.toString())
+        }
       }
     },
     getRandomLoot() {

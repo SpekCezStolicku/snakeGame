@@ -17,7 +17,7 @@
 <script setup lang="ts">
 import Snake from './Snake.vue'
 import GameLoot from './GameLoot.vue'
-import { computed, onMounted, onUnmounted } from 'vue'
+import { onMounted, onUnmounted, watch } from 'vue'
 import { useGameStore } from '@/store/gameSettings'
 
 // TYPES
@@ -25,7 +25,7 @@ import type { Direction } from '@/types/types'
 
 // STORE
 const gameStore = useGameStore()
-const currentSpeed = computed(() => gameStore.gameSpeed / gameStore.level)
+let intervalId: number | undefined
 
 // KEYBOARD EVENTS
 function handleKeydown(event: KeyboardEvent) {
@@ -60,19 +60,31 @@ function handleKeydown(event: KeyboardEvent) {
 }
 
 function startGame() {
+  clearInterval(intervalId)
   gameStore.getRandomLoot()
-  const intervalId = setInterval(() => {
+  intervalId = setInterval(() => {
     if (gameStore.gameStarted) {
       gameStore.moveSnake()
     } else {
       clearInterval(intervalId)
     }
-  }, currentSpeed.value)
-
-  onUnmounted(() => {
-    clearInterval(intervalId)
-  })
+  }, gameStore.currentSpeed)
 }
+
+onMounted(() => {
+  watch(
+    () => gameStore.currentSpeed,
+    (newSpeed, oldSpeed) => {
+      if (gameStore.gameStarted && newSpeed !== oldSpeed) {
+        startGame()
+      }
+    }
+  )
+})
+
+onUnmounted(() => {
+  clearInterval(intervalId)
+})
 
 onMounted(() => {
   window.addEventListener('keydown', handleKeydown)
