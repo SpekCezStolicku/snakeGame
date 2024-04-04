@@ -28,15 +28,15 @@ export const useGameStore = defineStore('game', {
     direction: 'UP' as Direction,
     nextDirection: null as Direction | null,
     loot: [
-      { name: 'Apple', image: 'apple', score: 10, bodyIncrease: 0 },
+      { name: 'Apple', image: 'apple', score: 10, bodyIncrease: 0, snakeSpeed: 0 },
       { name: 'Banana', image: 'banana', score: 20, bodyIncrease: 1, snakeSpeed: 10 },
-      { name: 'Cherries', image: 'cherries', score: 30, bodyIncrease: 2 },
-      { name: 'Grape', image: 'grape', score: 40, bodyIncrease: 1, snakeSpeed: 20 },
-      { name: 'Lemon', image: 'lemon', score: 50, bodyIncrease: 1, snakeSpeed: 30 },
-      { name: 'Peach', image: 'peach', score: 60, bodyIncrease: 1, snakeSpeed: -10 },
-      { name: 'Melon', image: 'melon', score: 70, bodyIncrease: 3, snakeSpeed: -10 },
-      { name: 'Pineapple', image: 'pineapple', score: 80, bodyIncrease: 2 },
-      { name: 'Strawberry', image: 'strawberry', score: 90, bodyIncrease: 3 }
+      { name: 'Cherries', image: 'cherries', score: 30, bodyIncrease: 2, snakeSpeed: 0 },
+      { name: 'Grape', image: 'grape', score: 40, bodyIncrease: 1, snakeSpeed: -20 },
+      { name: 'Lemon', image: 'lemon', score: 50, bodyIncrease: 1, snakeSpeed: -30 },
+      { name: 'Peach', image: 'peach', score: 60, bodyIncrease: 1, snakeSpeed: 10 },
+      { name: 'Melon', image: 'melon', score: 70, bodyIncrease: 3, snakeSpeed: 10 },
+      { name: 'Pineapple', image: 'pineapple', score: 80, bodyIncrease: 2, snakeSpeed: -10 },
+      { name: 'Strawberry', image: 'strawberry', score: 90, bodyIncrease: 3, snakeSpeed: 0 }
     ] as Loot[],
     currentLootPosition: { x: null, y: null } as Position,
     currentLoot: null as Loot | null,
@@ -82,6 +82,16 @@ export const useGameStore = defineStore('game', {
         if (this.isSnakeOnLoot()) {
           this.updateScore(this.score + this.currentLoot!.score)
           this.snakeLength += this.currentLoot!.bodyIncrease
+
+          // Zmena rýchlosti ak loot obsahuje snakeSpeed
+          if (this.currentLoot!.snakeSpeed) {
+            const temporarySpeedChange = this.currentLoot!.snakeSpeed
+            this.currentSpeed += temporarySpeedChange // Dočasne uprav rýchlosť podľa lootu
+
+            setTimeout(() => {
+              this.currentSpeed -= temporarySpeedChange // Vráť pôvodnú rýchlosť po 3 sekundách
+            }, 3000)
+          }
           this.getRandomLoot()
         } else if (
           this.snakePosition
@@ -165,7 +175,7 @@ export const useGameStore = defineStore('game', {
       if (attempts <= 100) {
         this.currentLootPosition.x = randomX
         this.currentLootPosition.y = randomY
-        const index = getRandomNumber(0, this.loot.length - 1)
+        const index = getRandomNumber(this.loot.length - 1, 0)
         this.currentLoot = this.loot[index]
       }
     },

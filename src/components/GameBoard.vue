@@ -11,6 +11,7 @@
   >
     <Snake />
     <GameLoot />
+    <h1>{{ gameStore.currentSpeed }}</h1>
   </section>
 </template>
 
@@ -60,8 +61,9 @@ function handleKeydown(event: KeyboardEvent) {
 }
 
 function startGame() {
-  clearInterval(intervalId)
   gameStore.getRandomLoot()
+
+  clearInterval(intervalId)
   intervalId = setInterval(() => {
     if (gameStore.gameStarted) {
       gameStore.moveSnake()
@@ -72,18 +74,33 @@ function startGame() {
 }
 
 onMounted(() => {
+  window.addEventListener('keydown', handleKeydown)
+
   watch(
     () => gameStore.currentSpeed,
-    (newSpeed, oldSpeed) => {
-      if (gameStore.gameStarted && newSpeed !== oldSpeed) {
-        startGame()
+    () => {
+      if (gameStore.gameStarted) {
+        clearInterval(intervalId)
+        intervalId = setInterval(() => {
+          if (gameStore.gameStarted) {
+            gameStore.moveSnake()
+          } else {
+            clearInterval(intervalId)
+          }
+        }, gameStore.currentSpeed)
       }
     }
   )
 })
 
 onUnmounted(() => {
+  window.removeEventListener('keydown', handleKeydown)
   clearInterval(intervalId)
+})
+
+onUnmounted(() => {
+  clearInterval(intervalId)
+  window.removeEventListener('keydown', handleKeydown)
 })
 
 onMounted(() => {
