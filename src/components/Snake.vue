@@ -4,13 +4,19 @@
     v-for="(segment, index) in snakePosition"
     :key="`segment-${index}`"
     :style="getSegmentStyle(segment, index)"
-    :class="index === 0 ? `w-[${gameStore.tileSize + 10}px] z-50 grid place-items-center` : ''"
+    class="grid place-items-center"
+    :class="
+      index === 0
+        ? `w-[${gameStore.tileSize + 10}px] z-50`
+        : `h-[${gameStore.tileSize}px] h-[20px] overflow-hidden`
+    "
   >
     <img
       :src="`/src/assets/images/${getSegmentImage(index)}.png`"
       alt="Snake Segment"
+      class="last-of-type:rounded-full"
       :width="gameStore.tileSize"
-      :class="index === 0 ? `w-[${gameStore.tileSize + 10}px] relative right-[.25px]` : ''"
+      :class="index === 0 ? `w-[${gameStore.tileSize + 10}px]` : `overflow-hidden`"
     />
   </div>
 </template>
@@ -30,9 +36,8 @@ const body = 'body'
 function getSegmentImage(index: number) {
   if (index === 0) {
     return head
-  } else {
-    return body
   }
+  return body
 }
 
 function getSegmentStyle(segment: Position, index: number) {

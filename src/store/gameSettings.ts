@@ -83,13 +83,12 @@ export const useGameStore = defineStore('game', {
           this.updateScore(this.score + this.currentLoot!.score)
           this.snakeLength += this.currentLoot!.bodyIncrease
 
-          // Zmena rýchlosti ak loot obsahuje snakeSpeed
           if (this.currentLoot!.snakeSpeed) {
             const temporarySpeedChange = this.currentLoot!.snakeSpeed
-            this.currentSpeed += temporarySpeedChange // Dočasne uprav rýchlosť podľa lootu
+            this.currentSpeed += temporarySpeedChange
 
             setTimeout(() => {
-              this.currentSpeed -= temporarySpeedChange // Vráť pôvodnú rýchlosť po 3 sekundách
+              this.currentSpeed -= temporarySpeedChange
             }, 3000)
           }
           this.getRandomLoot()
