@@ -6,10 +6,10 @@ import type { Direction, Loot, Position } from '@/types/types'
 
 export const useGameStore = defineStore('game', {
   state: () => ({
-    gameSpeed: 250, // 250 ms - speed increase depends on score
-    currentSpeed: 250,
+    gameSpeed: 150, // 150 ms - speed increase depends on score
+    currentSpeed: 150,
     level: 1, // Points to level of difficulty
-    snakeLength: 3, // Starts with head, body and tail
+    snakeLength: 3, // Starts with head and body
     score: 0, // Current score
     player: '', // Player name
     playerHighscore: parseInt(localStorage.getItem('snakeHighscore') || '0'), //Player's best individual score
