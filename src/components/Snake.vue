@@ -3,12 +3,12 @@
   <div
     v-for="(segment, index) in snakePosition"
     :key="`segment-${index}`"
-    :style="getSegmentStyle(segment, index)"
-    class="grid place-items-center"
+    :style="getSegmentStyle(segment)"
+    class="grid"
     :class="
       index === 0
-        ? `w-[${gameStore.tileSize + 10}px] z-50`
-        : `h-[${gameStore.tileSize}px] h-[20px] overflow-hidden`
+        ? `w-[${gameStore.tileSize + 10}px] z-50 place-items-center`
+        : `h-[20px] place-items-end `
     "
   >
     <img
@@ -40,28 +40,29 @@ function getSegmentImage(index: number) {
   return body
 }
 
-function getSegmentStyle(segment: Position, index: number) {
+function getSegmentStyle(segment: Position) {
   let rotation = 0
-  if (index === 0) {
-    // Head rotation
-    switch (gameStore.direction) {
-      case 'UP':
-        rotation = 0
-        break
-      case 'RIGHT':
-        rotation = 90
-        break
-      case 'DOWN':
-        rotation = -180
-        break
-      case 'LEFT':
-        rotation = -90
-        break
-    }
+  const change = gameStore.directionChanges.find((dc) => dc.x === segment.x && dc.y === segment.y)
+  const segmentDirection = change ? change.direction : segment.direction || gameStore.direction
+
+  switch (segmentDirection) {
+    case 'UP':
+      rotation = 0
+      break
+    case 'RIGHT':
+      rotation = 90
+      break
+    case 'DOWN':
+      rotation = 180
+      break
+    case 'LEFT':
+      rotation = -90
+      break
   }
+
   return {
-    gridColumnStart: segment.x != null ? segment.x : '',
-    gridRowStart: segment.y != null ? segment.y : '',
+    gridColumnStart: segment.x,
+    gridRowStart: segment.y,
     transform: `rotate(${rotation}deg)`
   }
 }

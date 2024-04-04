@@ -27,6 +27,7 @@ export const useGameStore = defineStore('game', {
     ],
     direction: 'UP' as Direction,
     nextDirection: null as Direction | null,
+    directionChanges: [] as { x: number; y: number; direction: Direction }[],
     loot: [
       { name: 'Apple', image: 'apple', score: 10, bodyIncrease: 0, snakeSpeed: 0 },
       { name: 'Banana', image: 'banana', score: 20, bodyIncrease: 1, snakeSpeed: 10 },
@@ -38,7 +39,7 @@ export const useGameStore = defineStore('game', {
       { name: 'Pineapple', image: 'pineapple', score: 80, bodyIncrease: 2, snakeSpeed: -10 },
       { name: 'Strawberry', image: 'strawberry', score: 90, bodyIncrease: 3, snakeSpeed: 0 }
     ] as Loot[],
-    currentLootPosition: { x: null, y: null } as Position,
+    currentLootPosition: { x: 0, y: 0 } as Position,
     currentLoot: null as Loot | null,
     gameStarted: false,
     isGameOver: false
@@ -46,12 +47,14 @@ export const useGameStore = defineStore('game', {
   actions: {
     moveSnake() {
       if (this.nextDirection && this.nextDirection !== this.getOppositeDirection(this.direction)) {
+        const head = this.snakePosition[0]
+        this.directionChanges.push({ x: head.x, y: head.y, direction: this.nextDirection })
         this.direction = this.nextDirection
         this.nextDirection = null
       }
 
       const head = this.snakePosition[0]
-      const newPosition = { ...head }
+      const newPosition = { x: head.x, y: head.y, direction: this.direction }
 
       switch (this.direction) {
         case 'UP':
@@ -67,8 +70,7 @@ export const useGameStore = defineStore('game', {
           newPosition.x += 1
           break
       }
-
-      // Borders check
+      // Kontrola kolízie s hranicami
       if (
         newPosition.x < 1 ||
         newPosition.x > this.playground.xTiles ||
@@ -76,50 +78,53 @@ export const useGameStore = defineStore('game', {
         newPosition.y > this.playground.yTiles
       ) {
         this.gameOver()
-      } else {
-        this.snakePosition.unshift(newPosition)
+        return
+      }
 
-        if (this.isSnakeOnLoot()) {
-          this.updateScore(this.score + this.currentLoot!.score)
-          this.snakeLength += this.currentLoot!.bodyIncrease
+      this.snakePosition.unshift(newPosition)
 
-          if (this.currentLoot!.snakeSpeed) {
-            const temporarySpeedChange = this.currentLoot!.snakeSpeed
-            this.currentSpeed += temporarySpeedChange
-
-            setTimeout(() => {
-              this.currentSpeed -= temporarySpeedChange
-            }, 3000)
-          }
-          this.getRandomLoot()
-        } else if (
-          this.snakePosition
-            .slice(1)
-            .some((segment) => segment.x === newPosition.x && segment.y === newPosition.y)
-        ) {
-          // Snake segment collision
-          const segmentIndex = this.snakePosition.findIndex(
-            (segment, index) =>
-              index !== 0 && segment.x === newPosition.x && segment.y === newPosition.y
-          )
-          if (segmentIndex > 0) {
-            const segmentsRemoved = this.snakePosition.length - segmentIndex
-            this.snakePosition = this.snakePosition.slice(0, segmentIndex)
-            this.snakeLength = segmentIndex
-            this.updateScore(this.score - 50 * segmentsRemoved) // -50 points for every segment
-          }
-        }
-
-        if (this.snakePosition.length > this.snakeLength) {
-          this.snakePosition.pop()
-        }
-
+      if (
+        this.snakePosition.some(
+          (segment, index) =>
+            index !== 0 && segment.x === newPosition.x && segment.y === newPosition.y
+        )
+      ) {
+        const segmentIndex = this.snakePosition.findIndex(
+          (segment, index) =>
+            index !== 0 && segment.x === newPosition.x && segment.y === newPosition.y
+        )
+        const removedSegments = this.snakePosition.length - segmentIndex
+        this.snakePosition.splice(segmentIndex, removedSegments)
+        this.updateScore(this.score - 50 * removedSegments)
+        this.snakeLength -= removedSegments
         if (this.score < 0) {
           this.gameOver()
+          return
         }
       }
+
+      while (this.snakePosition.length > this.snakeLength) {
+        this.snakePosition.pop()
+      }
+
+      if (this.isSnakeOnLoot()) {
+        this.updateScore(this.score + this.currentLoot!.score)
+        this.snakeLength += this.currentLoot!.bodyIncrease
+        if (this.currentLoot!.snakeSpeed) {
+          const temporarySpeedChange = this.currentLoot!.snakeSpeed
+          this.currentSpeed += temporarySpeedChange
+          setTimeout(() => (this.currentSpeed -= temporarySpeedChange), 3000)
+        }
+        this.getRandomLoot()
+      }
+
+      this.directionChanges = this.directionChanges.filter((dc) =>
+        this.snakePosition.some((segment) => segment.x === dc.x && segment.y === dc.y)
+      )
     },
     setDirection(newDirection: Direction) {
+      const head = this.snakePosition[0]
+      this.directionChanges.push({ x: head.x, y: head.y, direction: newDirection })
       this.nextDirection = newDirection
     },
 

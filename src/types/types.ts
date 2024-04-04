@@ -1,8 +1,9 @@
 export type Direction = 'UP' | 'DOWN' | 'LEFT' | 'RIGHT'
 
 export type Position = {
-  x: number | null
-  y: number | null
+  x: number
+  y: number
+  direction?: Direction
 }
 
 export type Loot = {
