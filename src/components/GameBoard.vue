@@ -11,7 +11,6 @@
   >
     <Snake />
     <GameLoot />
-    <h1>{{ gameStore.currentSpeed }}</h1>
   </section>
 </template>
 
