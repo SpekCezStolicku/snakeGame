@@ -6,8 +6,9 @@ import type { Direction, Loot, Position } from '@/types/types'
 
 export const useGameStore = defineStore('game', {
   state: () => ({
-    gameSpeed: 150, // 150 ms - speed increase depends on score
-    currentSpeed: 150,
+    gameSpeed: 150, // 150 ms - base speed
+    currentSpeed: 150, // snake current speed
+    minimumSpeed: 50,
     level: 1, // Points to level of difficulty
     snakeLength: 3, // Starts with head and body
     score: 0, // Current score
@@ -70,7 +71,7 @@ export const useGameStore = defineStore('game', {
           newPosition.x += 1
           break
       }
-      // Kontrola kolízie s hranicami
+      // Collision with borders
       if (
         newPosition.x < 1 ||
         newPosition.x > this.playground.xTiles ||
@@ -152,7 +153,10 @@ export const useGameStore = defineStore('game', {
       const newLevel = Math.floor(this.score / 500) + 1
       if (newLevel > this.level) {
         this.level = newLevel
-        this.currentSpeed = Math.max(this.gameSpeed - this.gameSpeed * 0.1 * (this.level - 1), 60)
+        this.currentSpeed = Math.max(
+          this.gameSpeed - this.gameSpeed * 0.1 * (this.level - 1),
+          this.minimumSpeed
+        )
       }
 
       if (newScore > this.playerHighscore) {

@@ -4,7 +4,7 @@
     v-for="(segment, index) in snakePosition"
     :key="`segment-${index}`"
     :style="getSegmentStyle(segment)"
-    class="grid"
+    class="grid relative"
     :class="
       index === 0
         ? `w-[${gameStore.tileSize + 10}px] z-50 place-items-center`
@@ -14,7 +14,6 @@
     <img
       :src="`/src/assets/images/${getSegmentImage(index)}.png`"
       alt="Snake Segment"
-      class="last-of-type:rounded-full"
       :width="gameStore.tileSize"
       :class="index === 0 ? `w-[${gameStore.tileSize + 10}px]` : `overflow-hidden`"
     />

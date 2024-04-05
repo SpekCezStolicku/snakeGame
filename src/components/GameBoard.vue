@@ -43,19 +43,21 @@ function handleKeydown(event: KeyboardEvent) {
   }
 
   // Direction rules
-  const oppositeDirectionMap: {
-    [key in Direction]: Direction
-  } = {
-    UP: 'DOWN',
-    DOWN: 'UP',
-    LEFT: 'RIGHT',
-    RIGHT: 'LEFT'
-  }
-
   const newDirection = keyDirectionMap[event.key as keyof typeof keyDirectionMap]
-  // Prevent snake going to opposite direction
-  if (newDirection && gameStore.direction !== oppositeDirectionMap[newDirection]) {
-    gameStore.setDirection(newDirection)
+
+  if (newDirection && newDirection !== gameStore.direction && gameStore.nextDirection == null) {
+    const oppositeDirectionMap: {
+      [key in Direction]: Direction
+    } = {
+      UP: 'DOWN',
+      DOWN: 'UP',
+      LEFT: 'RIGHT',
+      RIGHT: 'LEFT'
+    }
+
+    if (gameStore.direction !== oppositeDirectionMap[newDirection]) {
+      gameStore.setDirection(newDirection)
+    }
   }
 }
 
