@@ -47,6 +47,8 @@ export const useGameStore = defineStore('game', {
   }),
   actions: {
     moveSnake() {
+      if (this.isGameOver) return
+
       if (this.nextDirection && this.nextDirection !== this.getOppositeDirection(this.direction)) {
         const head = this.snakePosition[0]
         this.directionChanges.push({ x: head.x, y: head.y, direction: this.nextDirection })
@@ -193,7 +195,26 @@ export const useGameStore = defineStore('game', {
     },
     gameOver() {
       this.isGameOver = true
-      console.log('Game Over')
+
+      if (this.score > this.playerHighscore) {
+        this.playerHighscore = this.score
+        localStorage.setItem('snakeHighscore', this.score.toString())
+      }
+    },
+    resetGame() {
+      this.gameStarted = false
+      this.isGameOver = false
+      this.snakePosition = [
+        { x: 16, y: 16 },
+        { x: 16, y: 17 },
+        { x: 16, y: 18 }
+      ]
+      this.direction = 'UP'
+      this.nextDirection = null
+      this.score = 0
+      this.snakeLength = 3
+      this.currentSpeed = this.gameSpeed
+      this.currentLoot = null
     }
   }
 })

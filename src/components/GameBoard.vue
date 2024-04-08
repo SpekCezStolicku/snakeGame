@@ -17,7 +17,7 @@
 <script setup lang="ts">
 import Snake from './Snake.vue'
 import GameLoot from './GameLoot.vue'
-import { onMounted, onUnmounted, watch } from 'vue'
+import { onMounted, computed, onUnmounted, watch } from 'vue'
 import { useGameStore } from '@/store/gameSettings'
 
 // TYPES
@@ -25,6 +25,7 @@ import type { Direction } from '@/types/types'
 
 // STORE
 const gameStore = useGameStore()
+const isGameOver = computed(() => gameStore.isGameOver)
 let intervalId: number | undefined
 
 // KEYBOARD EVENTS
@@ -62,6 +63,9 @@ function handleKeydown(event: KeyboardEvent) {
 }
 
 function startGame() {
+  if (isGameOver.value) {
+    return
+  }
   gameStore.getRandomLoot()
 
   clearInterval(intervalId)

@@ -3,19 +3,18 @@
   <div
     v-for="(segment, index) in snakePosition"
     :key="`segment-${index}`"
-    :style="getSegmentStyle(segment)"
+    :style="[
+      getSegmentStyle(segment),
+      index === 0 ? { width: `${gameStore.tileSize + gameStore.tileSize / 2}px` } : ''
+    ]"
     class="grid relative"
-    :class="
-      index === 0
-        ? `w-[${gameStore.tileSize + 10}px] z-50 place-items-center`
-        : `h-[20px] place-items-end `
-    "
+    :class="index === 0 ? `z-50 place-items-center` : `h-[20px] place-items-end `"
   >
     <img
       :src="`/src/assets/images/${getSegmentImage(index)}.png`"
       alt="Snake Segment"
-      :width="gameStore.tileSize"
-      :class="index === 0 ? `w-[${gameStore.tileSize + 10}px]` : `overflow-hidden`"
+      :style="index === 0 ? { width: `${gameStore.tileSize + gameStore.tileSize / 2}px` } : ''"
+      :class="index === 0 ? `` : `overflow-hidden`"
     />
   </div>
 </template>

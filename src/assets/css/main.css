@@ -1,0 +1,33 @@
+.px_border {
+  box-shadow:
+    16px 0 var(--white),
+    -16px 0 var(--white),
+    0 -16px var(--white),
+    0 16px var(--white),
+    4px 0 0 8px var(--white),
+    -4px 0 0 8px var(--white),
+    0 -4px 0 8px var(--white),
+    0 4px 0 8px var(--white),
+    20px 0 var(--orange),
+    -20px 0 var(--orange),
+    0 -20px var(--orange),
+    0 20px var(--orange),
+    0 0 0 12px var(--orange),
+    0 8px 0 8px var(--orange),
+    0 -8px 0 8px var(--orange),
+    8px 0 0 8px var(--orange),
+    -8px 0 0 8px var(--orange);
+}
+
+.px_button {
+  box-shadow:
+    4px 0 var(--white),
+    -4px 0 var(--white),
+    0 -4px var(--white),
+    0 4px var(--white),
+    8px 0 var(--blue),
+    -8px 0 var(--blue),
+    0 -8px var(--blue),
+    0 8px var(--blue),
+    0 0 0 4px var(--blue);
+}

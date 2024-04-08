@@ -3,6 +3,7 @@ import GameBoard from '@/components/GameBoard.vue'
 import GameInsttructions from '@/components/GameInstructions.vue'
 import GameHeader from '@/components/GameHeader.vue'
 import ScoreBoard from '@/components/ScoreBoard.vue'
+import GameModal from '@/components/GameModal.vue'
 </script>
 
 <template>
@@ -11,6 +12,7 @@ import ScoreBoard from '@/components/ScoreBoard.vue'
     <ScoreBoard />
     <GameBoard />
     <GameInsttructions />
+    <GameModal />
   </main>
 </template>
 
@@ -20,6 +22,7 @@ import ScoreBoard from '@/components/ScoreBoard.vue'
   --white: white;
   --green: #3cb371;
   --orange: #c58612;
+  --blue: blue;
 }
 main {
   margin: auto;
