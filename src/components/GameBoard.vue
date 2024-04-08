@@ -2,6 +2,7 @@
   <section
     id="board"
     class="mx-auto mb-10 text-center z-0 place-items-center"
+    :class="{ 'animate-wiggle': isGameOver }"
     :style="{
       width: `${gameStore.tileSize * gameStore.playground.xTiles}px`,
       height: `${gameStore.tileSize * gameStore.playground.yTiles}px`,

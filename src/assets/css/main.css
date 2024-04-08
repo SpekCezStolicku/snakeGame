@@ -1,3 +1,20 @@
+:root {
+  --burlywood: #deb887;
+  --white: white;
+  --green: #3cb371;
+  --orange: #c58612;
+  --blue: blue;
+}
+main {
+  margin: auto;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'VT323', 'Courier New', Courier, monospace;
+  width: 100vw;
+  height: 100vh;
+  background: url(/src/assets//images/bgPattern.svg);
+}
+
 .px_border {
   box-shadow:
     16px 0 var(--white),

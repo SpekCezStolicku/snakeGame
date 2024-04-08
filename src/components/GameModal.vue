@@ -1,9 +1,11 @@
 <template>
   <div
     v-if="store.isGameOver"
-    class="modal absolute z-50 text-3xl transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 font-bold p-5 bg-white px_border"
+    class="absolute z-50 text-3xl transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 font-bold p-5 bg-white px_border"
+    :class="{ 'animate-easeIn': store.isGameOver || props.isModalActive }"
     :style="{ width: `${(store.playground.xTiles - 3) * store.tileSize}px` }"
   >
+    <!-- Game over -->
     <div v-if="store.isGameOver" class="modal-content text-center w-full">
       <img
         src="/src/assets/images/gameOver.webp"
@@ -39,9 +41,12 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, defineProps } from 'vue'
 import { useGameStore } from '@/store/gameSettings'
 
+const props = defineProps({
+  isModalActive: { type: Boolean, default: false }
+})
 const store = useGameStore()
 
 const score = computed(() => store.score)

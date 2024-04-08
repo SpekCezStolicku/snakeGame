@@ -15,22 +15,3 @@ import GameModal from '@/components/GameModal.vue'
     <GameModal />
   </main>
 </template>
-
-<style>
-:root {
-  --burlywood: #deb887;
-  --white: white;
-  --green: #3cb371;
-  --orange: #c58612;
-  --blue: blue;
-}
-main {
-  margin: auto;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'VT323', 'Courier New', Courier, monospace;
-  width: 100vw;
-  height: 100vh;
-  background: url(./assets//images/bgPattern.svg);
-}
-</style>

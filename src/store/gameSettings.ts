@@ -7,7 +7,7 @@ import type { Direction, Loot, Position } from '@/types/types'
 export const useGameStore = defineStore('game', {
   state: () => ({
     gameSpeed: 150, // 150 ms - base speed
-    currentSpeed: 150, // snake current speed
+    currentSpeed: 150, // current snake speed
     minimumSpeed: 50,
     level: 1, // Points to level of difficulty
     snakeLength: 3, // Starts with head and body
