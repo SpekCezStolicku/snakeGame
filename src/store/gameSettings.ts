@@ -212,6 +212,7 @@ export const useGameStore = defineStore('game', {
       this.direction = 'UP'
       this.nextDirection = null
       this.score = 0
+      this.level = 1
       this.snakeLength = 3
       this.currentSpeed = this.gameSpeed
       this.currentLoot = null
