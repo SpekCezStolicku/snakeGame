@@ -1,8 +1,8 @@
 <template>
   <div
-    v-if="store.isGameOver"
+    v-if="store.isGameOver || state.showModal"
     class="absolute z-50 text-3xl transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 font-bold p-5 bg-white px_border"
-    :class="{ 'animate-easeIn': store.isGameOver || props.isModalActive }"
+    :class="{ 'animate-easeIn': store.isGameOver || state.showModal }"
     :style="{ width: `${(store.playground.xTiles - 3) * store.tileSize}px` }"
   >
     <!-- Game over -->
@@ -37,16 +37,16 @@
       </p>
       <button class="px_button mx-auto my-5 px-3" @click="restartGame">Restart Game</button>
     </div>
+    <GameRules v-if="state.showModal" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, defineProps } from 'vue'
+import { computed } from 'vue'
 import { useGameStore } from '@/store/gameSettings'
+import GameRules from '@/components/GameRules.vue'
+import { state } from '@/utils/utils'
 
-const props = defineProps({
-  isModalActive: { type: Boolean, default: false }
-})
 const store = useGameStore()
 
 const score = computed(() => store.score)
