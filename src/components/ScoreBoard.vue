@@ -1,25 +1,39 @@
 <template>
   <div
-    class="flex items-center justify-between scoreboard mb-6 text-2xl mx-auto"
-    :style="{ width: `${gameStore.tileSize * gameStore.playground.xTiles}px` }"
+    class="grid grid-cols-[1fr_1fr_auto] mb-6 text-2xl mx-auto"
+    :style="{ width: `${containerWidth}px` }"
   >
     <h1>
       Score: <b>{{ gameStore.score }}</b>
     </h1>
-    <h1 class="font-bold">Level {{ gameStore.level }}</h1>
-    <div class="flex items-center justify-center hightscore">
-      <img src="/src/assets/images/crown.png" alt="crown" width="25" />
+    <h1 class="font-bold" :class="levelColor">Level {{ gameStore.level }}</h1>
+    <div class="flex items-start justify-center">
+      <img src="/src/assets/images/crown.png" alt="crown" :width="crownWidth" />
       <h1>
         Your Highscore: <b>{{ gameStore.playerHighscore }}</b>
       </h1>
-      <button class="hidden px-4 text-xl font-bold">Leaderboard</button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { useGameStore } from '@/store/gameSettings'
+import { computed } from 'vue'
 
 // store
 const gameStore = useGameStore()
+
+// computed sizes
+const containerWidth = computed(() => gameStore.tileSize * (gameStore.playground.xTiles + 1))
+const crownWidth = computed(() => gameStore.tileSize + 10)
+
+// Change color every level
+const levelColors = [
+  'text-red-800',
+  'text-blue-600',
+  'text-green-600',
+  'text-yellow-800',
+  'text-purple-600'
+]
+const levelColor = computed(() => levelColors[(gameStore.level % levelColors.length) - 1])
 </script>

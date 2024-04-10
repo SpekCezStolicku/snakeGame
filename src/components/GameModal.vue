@@ -15,23 +15,23 @@
         :height="store.tileSize * 6"
       />
       <h1
-        class="text-5xl mx-auto text-transparent bg-gradient-to-r from-orange-500 to-red-800 mb-4 w-fit"
+        class="text-5xl mx-auto text-gradient bg-gradient-to-r from-orange-500 to-red-800 mb-4 w-fit"
       >
         Game Over!
       </h1>
-      <p class="mb-4" v-if="score < 0">
+      <p class="mb-4 text-2xl" v-if="score < 0">
         Nibbled on tail, oh what a fail, game over, Snake's self-bite tale!
       </p>
-      <p class="mb-4" v-else>End of line, you hit the sign, game over, Mr. Slithering Vine!</p>
+      <p class="mb-4 text-2xl" v-else>
+        End of line, you hit the sign, game over, Mr. Slithering Vine!
+      </p>
       <p>
         Your score:
-        <span class="text-transparent bg-gradient-to-r from-green-600 to-teal-800">{{
-          score
-        }}</span>
+        <span class="text-gradient bg-gradient-to-r from-green-600 to-teal-800">{{ score }}</span>
       </p>
       <p>
         Your highscore:
-        <span class="text-transparent bg-gradient-to-r from-green-600 to-teal-800">{{
+        <span class="text-gradient bg-gradient-to-r from-blue-500 to-teal-800">{{
           highscore
         }}</span>
       </p>

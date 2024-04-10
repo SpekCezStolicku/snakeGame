@@ -15,7 +15,7 @@
       4. Some fruits are tastier and more filling, while others are sour—don't let the snake go
       hungry!
     </p>
-    <div class="grid grid-cols-4 gap-7 mb-2" v-for="(item, index) in gameStore.loot" :key="index">
+    <div class="grid grid-cols-4 gap-14 mb-2" v-for="(item, index) in gameStore.loot" :key="index">
       <div class="flex items-center justify-start">
         <img
           :src="`/src/assets/images/loot/${item.image}.png`"
@@ -23,7 +23,7 @@
           class="h-fit mr-2"
           :alt="item.name"
         />
-        <h1>{{ item.name }}</h1>
+        <h1 :aria-level="index">{{ item.name }}</h1>
       </div>
 
       <p>Score: {{ item.score }}</p>
