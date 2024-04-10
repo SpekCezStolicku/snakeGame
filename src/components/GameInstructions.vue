@@ -1,15 +1,13 @@
 <template>
   <div
     v-if="!gameStore.gameStarted"
-    class="absolute z-50 text-3xl transform -translate-x-1/2 -translate-y-1/2 bg-white px_border animate-[pulse_3s_linear_infinite] top-1/2 left-1/2 mx-auto text-center"
+    class="absolute-center text-3xl bg-white px_border animate-[pulse_3s_linear_infinite] mx-auto text-center"
     :style="{ maxWidth: `${(gameStore.playground.xTiles - 3) * gameStore.tileSize}px` }"
   >
-    <h1
-      class="font-bold bg-clip-text text-transparent bg-gradient-to-r from-green-600 to-teal-800 mb-4 text-4xl"
-    >
+    <h1 class="font-bold text-gradient from-green-600 to-teal-800 mb-4">
       {{ displayWelcomeText() }}
     </h1>
-    <h2 class="mb-5">
+    <h2 class="mb-5 text-2xl">
       Before you slither and slide, take a peek at the
       <span @click="toggleSwitch(true)" class="underline text-orange-600 font-bold cursor-pointer"
         >rules inside!</span

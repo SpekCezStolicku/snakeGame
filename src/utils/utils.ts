@@ -1,8 +1,5 @@
 import { reactive } from 'vue'
-
-interface EventBus {
-  showModal: boolean
-}
+import type { EventBus } from '@/types/types'
 
 export const state: EventBus = reactive({
   showModal: false

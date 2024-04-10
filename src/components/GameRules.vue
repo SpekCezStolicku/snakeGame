@@ -1,14 +1,14 @@
 <template>
   <div class="text-xl">
-    <p class="mb-2 bg-clip-text text-transparent bg-gradient-to-r from-green-600 to-teal-800">
+    <p class="mb-2 text-gradient from-green-600 to-teal-800">
       1. Starting at a speed of 480,000 px/h, this game's snake moves lightning-fast from the
       get-go!
     </p>
-    <p class="mb-2 bg-clip-text text-transparent bg-gradient-to-r from-orange-500 to-red-800">
+    <p class="mb-2 text-gradient from-orange-500 to-red-800">
       2. If the snake bites its own body, each segment costs 50 points; dip below 0, and it's game
       over!
     </p>
-    <p class="mb-2 bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-teal-800">
+    <p class="mb-2 text-gradient from-blue-500 to-teal-800">
       3. Edges aren't teleport portals here; hit them and you'll break your nose!
     </p>
     <p class="mb-4">
@@ -19,7 +19,7 @@
       <div class="flex items-center justify-start">
         <img
           :src="`/src/assets/images/loot/${item.image}.png`"
-          :width="gameStore.tileSize"
+          :width="gameStore.tileSize - 5"
           class="h-fit mr-2"
           :alt="item.name"
         />
@@ -34,8 +34,10 @@
         Size: <span class="font-bold">{{ item.bodyIncrease }}</span>
       </p>
     </div>
+    <button @click="toggleSwitch(false)" class="px_button mt-4 px-3 text-xl">
+      Nothing can stop me now!
+    </button>
   </div>
-  <p @click="toggleSwitch(false)" class="absolute cursor-pointer top-3 right-3 font-bold">X</p>
 </template>
 
 <script setup lang="ts">

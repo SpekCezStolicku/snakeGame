@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="store.isGameOver || state.showModal"
-    class="absolute z-50 text-3xl transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 font-bold p-5 bg-white px_border"
+    class="absolute-center text-3xl font-bold p-5 bg-white px_border"
     :class="{ 'animate-easeIn': store.isGameOver || state.showModal }"
     :style="{ width: `${(store.playground.xTiles - 3) * store.tileSize}px` }"
   >
@@ -15,7 +15,7 @@
         :height="store.tileSize * 6"
       />
       <h1
-        class="text-5xl mx-auto bg-clip-text text-transparent bg-gradient-to-r from-orange-500 to-red-800 mb-4 w-fit"
+        class="text-5xl mx-auto text-transparent bg-gradient-to-r from-orange-500 to-red-800 mb-4 w-fit"
       >
         Game Over!
       </h1>
@@ -25,13 +25,13 @@
       <p class="mb-4" v-else>End of line, you hit the sign, game over, Mr. Slithering Vine!</p>
       <p>
         Your score:
-        <span class="bg-clip-text text-transparent bg-gradient-to-r from-green-600 to-teal-800">{{
+        <span class="text-transparent bg-gradient-to-r from-green-600 to-teal-800">{{
           score
         }}</span>
       </p>
       <p>
         Your highscore:
-        <span class="bg-clip-text text-transparent bg-gradient-to-r from-green-600 to-teal-800">{{
+        <span class="text-transparent bg-gradient-to-r from-green-600 to-teal-800">{{
           highscore
         }}</span>
       </p>
