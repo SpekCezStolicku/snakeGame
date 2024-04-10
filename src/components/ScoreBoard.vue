@@ -1,13 +1,13 @@
 <template>
   <div
-    class="grid grid-cols-[1fr_1fr_auto] mb-6 text-2xl mx-auto"
+    class="grid grid-cols-[1fr_1fr_auto] mb-3 text-md md:text-2xl mx-auto"
     :style="{ width: `${containerWidth}px` }"
   >
     <h1>
       Score: <b>{{ gameStore.score }}</b>
     </h1>
     <h1 class="font-bold" :class="levelColor">Level {{ gameStore.level }}</h1>
-    <div class="flex items-start justify-center">
+    <div class="flex items-center justify-center">
       <img src="/src/assets/images/crown.png" alt="crown" :width="crownWidth" />
       <h1>
         Your Highscore: <b>{{ gameStore.playerHighscore }}</b>
@@ -25,7 +25,7 @@ const gameStore = useGameStore()
 
 // computed sizes
 const containerWidth = computed(() => gameStore.tileSize * (gameStore.playground.xTiles + 1))
-const crownWidth = computed(() => gameStore.tileSize + 10)
+const crownWidth = computed(() => gameStore.tileSize + 8)
 
 // Change color every level
 const levelColors = [

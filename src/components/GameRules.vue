@@ -1,5 +1,5 @@
 <template>
-  <div class="text-xl">
+  <div class="text-xs md:text-xl">
     <p class="mb-2 text-gradient from-green-600 to-teal-800">
       1. Starting at a speed of 480,000 px/h, this game's snake moves lightning-fast from the
       get-go!
@@ -15,7 +15,11 @@
       4. Some fruits are tastier and more filling, while others are sour—don't let the snake go
       hungry!
     </p>
-    <div class="grid grid-cols-4 gap-14 mb-2" v-for="(item, index) in gameStore.loot" :key="index">
+    <div
+      class="grid grid-cols-4 mb-2 text-center"
+      v-for="(item, index) in gameStore.loot"
+      :key="index"
+    >
       <div class="flex items-center justify-start">
         <img
           :src="`/src/assets/images/loot/${item.image}.png`"
@@ -34,7 +38,7 @@
         Size: <span class="font-bold">{{ item.bodyIncrease }}</span>
       </p>
     </div>
-    <button @click="toggleSwitch(false)" class="px_button mt-4 px-3 text-xl">
+    <button @click="toggleSwitch(false)" class="px_button mt-4 px-3 text-xs md:text-xl">
       Nothing can stop me now!
     </button>
   </div>

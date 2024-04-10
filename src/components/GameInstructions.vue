@@ -1,19 +1,21 @@
 <template>
   <div
     v-if="!gameStore.gameStarted"
-    class="absolute-center text-3xl bg-white px_border animate-[pulse_3s_linear_infinite] mx-auto text-center"
-    :style="{ maxWidth: `${(gameStore.playground.xTiles - 3) * gameStore.tileSize}px` }"
+    class="absolute-center text-xl md:text-3xl bg-white px_border mx-auto text-center"
+    :style="{ width: `${(gameStore.playground.xTiles - 3) * gameStore.tileSize}px` }"
   >
     <h1 class="font-bold text-gradient from-green-600 to-teal-800 mb-4">
       {{ displayWelcomeText() }}
     </h1>
-    <h2 class="mb-5 text-2xl">
+    <h2 class="mb-5 text-lg md:text-2xl">
       Before you slither and slide, take a peek at the
       <span @click="toggleSwitch(true)" class="underline text-orange-600 font-bold cursor-pointer"
         >rules inside!</span
       >
     </h2>
-    <p>Press any <b>key</b> to start the game.</p>
+    <div class="animate-[pulse_3s_linear_infinite]">
+      <p>Press any <b>key</b> to start the game.</p>
+    </div>
   </div>
 </template>
 
