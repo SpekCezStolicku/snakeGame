@@ -3,15 +3,15 @@
     class="grid grid-cols-[1fr_1fr_auto] mb-3 text-md md:text-2xl mx-auto"
     :style="{ width: `${containerWidth}px` }"
   >
-    <h1>
+    <p>
       Score: <b>{{ gameStore.score }}</b>
-    </h1>
-    <h1 class="font-bold" :class="levelColor">Level {{ gameStore.level }}</h1>
+    </p>
+    <p class="font-bold" :class="levelColor">Level {{ gameStore.level }}</p>
     <div class="flex items-center justify-center">
       <img src="/src/assets/images/crown.png" alt="crown" :width="crownWidth" />
-      <h1>
+      <p class="md:text-xl">
         Your Highscore: <b>{{ gameStore.playerHighscore }}</b>
-      </h1>
+      </p>
     </div>
   </div>
 </template>
