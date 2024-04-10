@@ -9,7 +9,7 @@ import GameController from '@/components/GameController.vue'
 <template>
   <main class="select-none flex flex-col justify-between">
     <GameHeader />
-    <div class="game-board p-2 md:p-5 bg-yellow-600">
+    <div class="game-board p-2 md:p-5 bg-green-600">
       <ScoreBoard />
       <GameBoard />
       <GameController />
