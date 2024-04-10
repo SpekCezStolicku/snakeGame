@@ -7,6 +7,14 @@
     @apply bg-clip-text text-transparent bg-gradient-to-r;
   }
   .absolute-center {
-    @apply absolute z-50 transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2;
+    @apply absolute z-50 transform -translate-x-1/2 -translate-y-2/3 top-1/2 left-1/2;
+  }
+  .game-board {
+    box-shadow:
+      6px 0 black,
+      -6px 0 black,
+      0 -6px black,
+      0 6px black;
+    margin: 6px auto;
   }
 }

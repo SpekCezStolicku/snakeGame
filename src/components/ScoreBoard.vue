@@ -24,7 +24,7 @@ import { computed } from 'vue'
 const gameStore = useGameStore()
 
 // computed sizes
-const containerWidth = computed(() => gameStore.tileSize * (gameStore.playground.xTiles + 1))
+const containerWidth = computed(() => gameStore.tileSize * gameStore.playground.xTiles)
 const crownWidth = computed(() => gameStore.tileSize + 8)
 
 // Change color every level

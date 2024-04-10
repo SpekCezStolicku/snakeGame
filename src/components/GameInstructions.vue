@@ -2,7 +2,7 @@
   <div
     v-if="!gameStore.gameStarted"
     class="absolute-center text-xl md:text-3xl bg-white px_border mx-auto text-center"
-    :style="{ width: `${(gameStore.playground.xTiles - 3) * gameStore.tileSize}px` }"
+    :style="{ width: `${(gameStore.playground.xTiles - 5) * gameStore.tileSize}px` }"
   >
     <h1 class="font-bold text-gradient from-green-600 to-teal-800 mb-4">
       {{ displayWelcomeText() }}
@@ -15,7 +15,7 @@
     </h2>
     <div class="animate-[pulse_2s_linear_infinite]">
       <button
-        class="px_button px-4 my-4 text-xl md:text-2xl font-bold"
+        class="px_button px-4 my-2 md:my-4 text-xl md:text-2xl font-bold"
         @click="gameStore.startGame()"
       >
         Let's play!

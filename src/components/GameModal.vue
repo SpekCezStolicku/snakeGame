@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="store.isGameOver || state.showModal"
-    class="absolute-center text-xl md:text-3xl font-bold md:p-5 p-2 bg-white px_border"
+    class="absolute-center text-xl md:text-3xl font-bold md:p-5 bg-white px_border"
     :class="{ 'animate-easeIn': store.isGameOver || state.showModal }"
     :style="{ width: `${(store.playground.xTiles - 3) * store.tileSize}px` }"
   >
@@ -35,7 +35,7 @@
           highscore
         }}</span>
       </p>
-      <button class="px_button mx-auto my-5 px-3" @click="restartGame">Restart Game</button>
+      <button class="px_button mx-auto mt-5 px-3" @click="restartGame">Restart Game</button>
     </div>
     <GameRules v-if="state.showModal" />
   </div>

@@ -1,7 +1,7 @@
 <template>
   <section
     id="board"
-    class="mx-auto text-center z-0 place-items-center"
+    class="grid game-board mx-auto text-center mb-5 md:mb-10 z-0 place-items-center bg-orange-100"
     :class="{ 'animate-wiggle': isGameOver }"
     :style="{
       width: `${gameStore.tileSize * gameStore.playground.xTiles}px`,
@@ -12,12 +12,16 @@
   >
     <Snake />
     <GameLoot />
+    <GameInstructions />
+    <GameModal />
   </section>
 </template>
 
 <script setup lang="ts">
 import Snake from './Snake.vue'
 import GameLoot from './GameLoot.vue'
+import GameInstructions from '@/components/GameInstructions.vue'
+import GameModal from '@/components/GameModal.vue'
 import { onMounted, computed, onUnmounted } from 'vue'
 import { useGameStore } from '@/store/gameSettings'
 
@@ -63,18 +67,3 @@ onUnmounted(() => {
   window.removeEventListener('keydown', handleKeydown)
 })
 </script>
-
-<style scoped>
-#board {
-  display: grid;
-  background: #80d5a6;
-  border: 5px dashed var(--green);
-  box-sizing: content-box;
-  box-shadow:
-    0 0 0 2.5px #226741,
-    0 0 0 12.5px var(--white),
-    inset 0 0 0 2.5px #226741,
-    0 5px 12px 12px rgba(0, 0, 0, 0.5),
-    inset 0 0 100vw 100vw beige;
-}
-</style>
