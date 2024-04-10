@@ -126,9 +126,9 @@ onUnmounted(() => {
   box-sizing: content-box;
   box-shadow:
     0 0 0 2.5px #226741,
-    0 0 0 12.5px snow,
+    0 0 0 12.5px var(--white),
     inset 0 0 0 2.5px #226741,
-    0 5px 6px 6px rgba(0, 0, 0, 0.5),
+    0 5px 12px 12px rgba(0, 0, 0, 0.5),
     inset 0 0 100vw 100vw beige;
 }
 </style>
