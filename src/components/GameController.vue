@@ -65,16 +65,18 @@ import type { Direction } from '@/types/types'
 const gameStore = useGameStore()
 
 function setDirection(direction: Direction) {
-  if (direction !== gameStore.direction && gameStore.nextDirection == null) {
-    const oppositeDirectionMap: { [key in Direction]: Direction } = {
-      UP: 'DOWN',
-      DOWN: 'UP',
-      LEFT: 'RIGHT',
-      RIGHT: 'LEFT'
-    }
+  if (gameStore.gameStarted) {
+    if (direction !== gameStore.direction && gameStore.nextDirection == null) {
+      const oppositeDirectionMap: { [key in Direction]: Direction } = {
+        UP: 'DOWN',
+        DOWN: 'UP',
+        LEFT: 'RIGHT',
+        RIGHT: 'LEFT'
+      }
 
-    if (gameStore.direction !== oppositeDirectionMap[direction]) {
-      gameStore.setDirection(direction)
+      if (gameStore.direction !== oppositeDirectionMap[direction]) {
+        gameStore.setDirection(direction)
+      }
     }
   }
 }
