@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="store.isGameOver || state.showModal"
-    class="absolute-center text-3xl font-bold md:p-5 p-2 bg-white px_border"
+    class="absolute-center text-xl md:text-3xl font-bold md:p-5 p-2 bg-white px_border"
     :class="{ 'animate-easeIn': store.isGameOver || state.showModal }"
     :style="{ width: `${(store.playground.xTiles - 3) * store.tileSize}px` }"
   >
@@ -11,18 +11,18 @@
         src="/src/assets/images/gameOver.webp"
         class="mx-auto"
         alt="Game over"
-        :width="store.tileSize * 6"
-        :height="store.tileSize * 6"
+        :width="store.tileSize * 7"
+        :height="store.tileSize * 7"
       />
       <h1
-        class="text-5xl mx-auto text-gradient bg-gradient-to-r from-orange-500 to-red-800 mb-4 w-fit"
+        class="text-3xl md:text-5xl mx-auto text-gradient bg-gradient-to-r from-orange-500 to-red-800 mb-4 w-fit"
       >
         Game Over!
       </h1>
-      <p class="mb-4 text-2xl" v-if="score < 0">
+      <p class="mb-4 text-xl md:text-2xl" v-if="score < 0">
         Nibbled on tail, oh what a fail, game over, Snake's self-bite tale!
       </p>
-      <p class="mb-4 text-2xl" v-else>
+      <p class="mb-4 text-xl md:text-2xl" v-else>
         End of line, you hit the sign, game over, Mr. Slithering Vine!
       </p>
       <p>
