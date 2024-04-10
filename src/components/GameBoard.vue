@@ -1,7 +1,7 @@
 <template>
   <section
     id="board"
-    class="mx-auto mb-10 text-center z-0 place-items-center"
+    class="mx-auto text-center z-0 place-items-center"
     :class="{ 'animate-wiggle': isGameOver }"
     :style="{
       width: `${gameStore.tileSize * gameStore.playground.xTiles}px`,
