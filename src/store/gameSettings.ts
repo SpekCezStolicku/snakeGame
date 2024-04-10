@@ -44,7 +44,8 @@ export const useGameStore = defineStore('game', {
     currentLootPosition: { x: 0, y: 0 } as Position,
     currentLoot: null as Loot | null,
     gameStarted: false,
-    isGameOver: false
+    isGameOver: false,
+    intervalId: null as number | null
   }),
   actions: {
     moveSnake() {
@@ -144,9 +145,21 @@ export const useGameStore = defineStore('game', {
           return 'LEFT'
       }
     },
+    startGame() {
+      if (this.isGameOver) {
+        return
+      }
+      this.gameStarted = true
+      this.getRandomLoot()
 
-    isGameStarted() {
-      this.gameStarted = !this.gameStarted
+      clearInterval(this.intervalId)
+      this.intervalId = window.setInterval(() => {
+        if (this.gameStarted) {
+          this.moveSnake()
+        } else {
+          clearInterval(this.intervalId)
+        }
+      }, this.currentSpeed)
     },
     // Player highscore logic
     updateScore(newScore: number) {

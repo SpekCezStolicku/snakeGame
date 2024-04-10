@@ -18,7 +18,7 @@
 <script setup lang="ts">
 import Snake from './Snake.vue'
 import GameLoot from './GameLoot.vue'
-import { onMounted, computed, onUnmounted, watch } from 'vue'
+import { onMounted, computed, onUnmounted } from 'vue'
 import { useGameStore } from '@/store/gameSettings'
 
 // TYPES
@@ -27,16 +27,9 @@ import type { Direction } from '@/types/types'
 // STORE
 const gameStore = useGameStore()
 const isGameOver = computed(() => gameStore.isGameOver)
-let intervalId: number | undefined
 
-// KEYBOARD EVENTS
+// KEYBOARD EVENT
 function handleKeydown(event: KeyboardEvent) {
-  if (!gameStore.gameStarted) {
-    gameStore.isGameStarted()
-    startGame()
-    return
-  }
-
   const keyDirectionMap: { [key: string]: Direction } = {
     ArrowUp: 'UP',
     ArrowDown: 'DOWN',
@@ -44,7 +37,6 @@ function handleKeydown(event: KeyboardEvent) {
     ArrowRight: 'RIGHT'
   }
 
-  // Direction rules
   const newDirection = keyDirectionMap[event.key as keyof typeof keyDirectionMap]
 
   if (newDirection && newDirection !== gameStore.direction && gameStore.nextDirection == null) {
@@ -62,52 +54,6 @@ function handleKeydown(event: KeyboardEvent) {
     }
   }
 }
-
-function startGame() {
-  if (isGameOver.value) {
-    return
-  }
-  gameStore.getRandomLoot()
-
-  clearInterval(intervalId)
-  intervalId = setInterval(() => {
-    if (gameStore.gameStarted) {
-      gameStore.moveSnake()
-    } else {
-      clearInterval(intervalId)
-    }
-  }, gameStore.currentSpeed)
-}
-
-onMounted(() => {
-  window.addEventListener('keydown', handleKeydown)
-
-  watch(
-    () => gameStore.currentSpeed,
-    () => {
-      if (gameStore.gameStarted) {
-        clearInterval(intervalId)
-        intervalId = setInterval(() => {
-          if (gameStore.gameStarted) {
-            gameStore.moveSnake()
-          } else {
-            clearInterval(intervalId)
-          }
-        }, gameStore.currentSpeed)
-      }
-    }
-  )
-})
-
-onUnmounted(() => {
-  window.removeEventListener('keydown', handleKeydown)
-  clearInterval(intervalId)
-})
-
-onUnmounted(() => {
-  clearInterval(intervalId)
-  window.removeEventListener('keydown', handleKeydown)
-})
 
 onMounted(() => {
   window.addEventListener('keydown', handleKeydown)

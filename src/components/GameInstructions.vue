@@ -13,8 +13,13 @@
         >rules inside!</span
       >
     </h2>
-    <div class="animate-[pulse_3s_linear_infinite]">
-      <p>Press any <b>key</b> to start the game.</p>
+    <div class="animate-[pulse_2s_linear_infinite]">
+      <button
+        class="px_button px-4 my-4 text-xl md:text-2xl font-bold"
+        @click="gameStore.startGame()"
+      >
+        Let's play!
+      </button>
     </div>
   </div>
 </template>
