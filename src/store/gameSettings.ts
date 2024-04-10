@@ -226,8 +226,11 @@ export const useGameStore = defineStore('game', {
     },
     adjustTileSize(maxWidth: number) {
       const totalWidth = this.playground.xTiles * this.tileSize
-      if (totalWidth > maxWidth) {
+      if (totalWidth > maxWidth && totalWidth > 500) {
         const newTileSize = 10
+        this.setTileSize(newTileSize)
+      } else if (totalWidth > maxWidth && totalWidth < 350) {
+        const newTileSize = 9
         this.setTileSize(newTileSize)
       } else {
         this.resetTileSize()
