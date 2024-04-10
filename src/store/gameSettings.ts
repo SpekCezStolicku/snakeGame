@@ -20,6 +20,7 @@ export const useGameStore = defineStore('game', {
       yTiles: 31
     },
     tileSize: 20, // Size in px
+    baseTileSize: 20,
     snakePosition: [
       // Start position default in center
       { x: 16, y: 16 }, // HEAD
@@ -216,6 +217,21 @@ export const useGameStore = defineStore('game', {
       this.snakeLength = 3
       this.currentSpeed = this.gameSpeed
       this.currentLoot = null
+    },
+    setTileSize(newSize: number) {
+      this.tileSize = newSize
+    },
+    resetTileSize() {
+      this.tileSize = this.baseTileSize
+    },
+    adjustTileSize(maxWidth: number) {
+      const totalWidth = this.playground.xTiles * this.tileSize
+      if (totalWidth > maxWidth) {
+        const newTileSize = 10
+        this.setTileSize(newTileSize)
+      } else {
+        this.resetTileSize()
+      }
     }
   }
 })

@@ -3,12 +3,14 @@
   <div
     v-for="(segment, index) in snakePosition"
     :key="`segment-${index}`"
+    class="grid relative"
+    :class="index === 0 ? `z-30 place-items-center` : `place-items-end`"
     :style="[
       getSegmentStyle(segment),
-      index === 0 ? { width: `${gameStore.tileSize + gameStore.tileSize / 2}px` } : ''
+      index === 0
+        ? { width: `${gameStore.tileSize + gameStore.tileSize / 2}px` }
+        : { height: `${gameStore.tileSize}px` }
     ]"
-    class="grid relative"
-    :class="index === 0 ? `z-30 place-items-center` : `h-[20px] place-items-end `"
   >
     <img
       :src="`/src/assets/images/${getSegmentImage(index)}.png`"

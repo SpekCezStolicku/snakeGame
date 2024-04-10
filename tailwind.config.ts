@@ -2,9 +2,6 @@
 export default {
   content: [],
   theme: {
-    screens: {
-      '3xl': '2800px'
-    },
     extend: {
       keyframes: {
         wiggle: {
