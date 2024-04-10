@@ -5,6 +5,7 @@ import GameHeader from '@/components/GameHeader.vue'
 import ScoreBoard from '@/components/ScoreBoard.vue'
 import GameModal from '@/components/GameModal.vue'
 import GameFooter from '@/components/GameFooter.vue'
+import GameController from '@/components/GameController.vue'
 </script>
 
 <template>
@@ -13,6 +14,7 @@ import GameFooter from '@/components/GameFooter.vue'
     <div>
       <ScoreBoard />
       <GameBoard />
+      <GameController />
     </div>
     <GameFooter />
     <GameInstructions />
