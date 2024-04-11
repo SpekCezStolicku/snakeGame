@@ -32,9 +32,14 @@ onMounted(() => {
 <template>
   <main class="select-none flex flex-col justify-between">
     <GameHeader />
-    <div ref="gameBoy" class="game-board p-2 md:p-5 bg-green-600">
-      <ScoreBoard />
-      <GameBoard />
+    <div
+      ref="gameBoy"
+      class="flex flex-col 4k:flex-col md:flex-row items-center game-board p-2 md:p-5 4k:p-8 bg-green-400"
+    >
+      <div>
+        <ScoreBoard />
+        <GameBoard />
+      </div>
       <GameController />
     </div>
     <GameFooter />

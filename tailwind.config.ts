@@ -3,6 +3,9 @@ module.exports = {
   content: ['./src/**/*.html', './src/**/*.vue', './src/**/*.jsx'],
   theme: {
     extend: {
+      screens: {
+        '4k': '2500px'
+      },
       keyframes: {
         wiggle: {
           '0%, 100%': { transform: 'rotate(-3deg)' },

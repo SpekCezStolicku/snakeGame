@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="store.isGameOver || state.showModal"
-    class="absolute-center text-xl md:text-3xl font-bold md:p-5 bg-white px_border"
+    class="absolute z-[60] text-xl md:text-3xl font-bold md:p-5 bg-white px_border"
     :class="{ 'animate-easeIn': store.isGameOver || state.showModal }"
     :style="{ width: `${(store.playground.xTiles - 3) * store.tileSize}px` }"
   >

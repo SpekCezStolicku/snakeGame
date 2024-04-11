@@ -1,6 +1,6 @@
 <template>
   <div
-    class="grid grid-cols-3 grid-rows-3 p-4 my-3 md:my-5 w-fit mx-auto bg-slate-200 rounded-full"
+    class="grid grid-cols-3 grid-rows-3 p-4 my-3 md:my-5 w-fit mx-auto bg-slate-200 rounded-full md:mx-10 mx-5"
   >
     <div
       class="col-start-2 row-start-1 mx-auto flex justify-center bg-black border-orange-500 border-2 md:border-4 border-b-0 md:border-b-0"

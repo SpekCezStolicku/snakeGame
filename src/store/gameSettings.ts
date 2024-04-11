@@ -250,8 +250,8 @@ export const useGameStore = defineStore('game', {
         return
       }
       if (!maxHeight) return
-      if (maxHeight > maxSize && maxSize > 450) {
-        this.setTileSize(14)
+      if (maxHeight > maxSize && maxSize > 630) {
+        this.setTileSize(15)
       } else if (maxHeight > maxSize && maxSize < 450) {
         this.setTileSize(10)
       } else if (maxHeight > maxSize && maxSize < 300) {
