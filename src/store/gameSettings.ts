@@ -45,7 +45,7 @@ export const useGameStore = defineStore('game', {
     currentLoot: null as Loot | null,
     gameStarted: false,
     isGameOver: false,
-    intervalId: null as number | null
+    intervalId: undefined as number | undefined
   }),
   actions: {
     moveSnake() {
