@@ -17,7 +17,6 @@ function checkAndUpdateSize() {
   gameStore.adjustTileSize(window.innerWidth)
 }
 
-// Prvotné nastavenie a sledovanie zmeny veľkosti okna
 checkAndUpdateSize()
 window.addEventListener('resize', checkAndUpdateSize)
 

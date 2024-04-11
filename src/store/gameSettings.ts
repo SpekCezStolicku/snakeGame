@@ -237,14 +237,25 @@ export const useGameStore = defineStore('game', {
     resetTileSize() {
       this.tileSize = this.baseTileSize
     },
-    adjustTileSize(maxWidth: number) {
-      const totalWidth = this.playground.xTiles * this.tileSize
-      if (totalWidth > maxWidth && totalWidth > 500) {
-        const newTileSize = 10
-        this.setTileSize(newTileSize)
-      } else if (totalWidth > maxWidth && totalWidth < 350) {
-        const newTileSize = 9
-        this.setTileSize(newTileSize)
+    adjustTileSize(maxWidth?: number | undefined, maxHeight?: number) {
+      const maxSize = this.playground.xTiles * this.tileSize
+      if (maxWidth) {
+        if (maxSize > maxWidth && maxSize > 500) {
+          this.setTileSize(10)
+        } else if (maxSize > maxWidth && maxSize < 350) {
+          this.setTileSize(9)
+        } else {
+          this.resetTileSize()
+        }
+        return
+      }
+      if (!maxHeight) return
+      if (maxHeight > maxSize && maxSize > 450) {
+        this.setTileSize(14)
+      } else if (maxHeight > maxSize && maxSize < 450) {
+        this.setTileSize(10)
+      } else if (maxHeight > maxSize && maxSize < 300) {
+        this.setTileSize(9)
       } else {
         this.resetTileSize()
       }
