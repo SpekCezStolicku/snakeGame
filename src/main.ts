@@ -14,7 +14,7 @@ app.use(pinia)
 const gameStore = useGameStore()
 
 function checkAndUpdateSize() {
-  gameStore.adjustTileSize(window.innerWidth)
+  gameStore.adjustTileSize(window.innerWidth, window.innerHeight)
 }
 
 checkAndUpdateSize()

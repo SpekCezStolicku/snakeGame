@@ -20,7 +20,6 @@ export const useGameStore = defineStore('game', {
       yTiles: 31
     },
     tileSize: 20, // Size in px
-    baseTileSize: 20,
     snakePosition: [
       // Start position default in center
       { x: 16, y: 16 }, // HEAD
@@ -231,34 +230,22 @@ export const useGameStore = defineStore('game', {
       this.currentSpeed = this.gameSpeed
       this.currentLoot = null
     },
-    setTileSize(newSize: number) {
-      this.tileSize = newSize
-    },
-    resetTileSize() {
-      this.tileSize = this.baseTileSize
-    },
-    adjustTileSize(maxWidth?: number | undefined, maxHeight?: number) {
-      const maxSize = this.playground.xTiles * this.tileSize
-      if (maxWidth) {
-        if (maxSize > maxWidth && maxSize > 500) {
-          this.setTileSize(10)
-        } else if (maxSize > maxWidth && maxSize < 350) {
-          this.setTileSize(9)
-        } else {
-          this.resetTileSize()
+    adjustTileSize(screenWidth: number, screenHeight: number) {
+      const baseTileSize = 20
+      let baseBoardWidth = this.playground.xTiles * this.tileSize + this.tileSize * 2
+      let baseBoardHeight = this.playground.yTiles * this.tileSize + this.tileSize * 14
+
+      if (screenWidth < baseBoardWidth || screenHeight < baseBoardHeight) {
+        this.tileSize = 10
+        const newTileSize = 10
+        baseBoardWidth = this.playground.xTiles * newTileSize + newTileSize * 2
+        baseBoardHeight = this.playground.yTiles * newTileSize + newTileSize * 14
+        if (screenWidth < baseBoardWidth || screenHeight < baseBoardHeight) {
+          this.tileSize = 8
         }
         return
       }
-      if (!maxHeight) return
-      if (maxHeight > maxSize && maxSize > 630) {
-        this.setTileSize(15)
-      } else if (maxHeight > maxSize && maxSize < 450) {
-        this.setTileSize(10)
-      } else if (maxHeight > maxSize && maxSize < 300) {
-        this.setTileSize(9)
-      } else {
-        this.resetTileSize()
-      }
+      this.tileSize = baseTileSize
     }
   }
 })
