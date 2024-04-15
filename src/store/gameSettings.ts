@@ -12,7 +12,7 @@ export const useGameStore = defineStore('game', {
     level: 1, // Points to level of difficulty
     snakeLength: 3, // Starts with head and body
     score: 0, // Current score
-    player: '', // Player name
+    player: localStorage.getItem('playerName') || '', // Player name
     playerHighscore: parseInt(localStorage.getItem('snakeHighscore') || '0'), //Player's best individual score
     leaderboard: [], // TO DO - firebase
     playground: {

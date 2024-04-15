@@ -18,7 +18,3 @@ export interface LeaderboardScore {
   name: string
   score: number
 }
-
-export interface EventBus {
-  showModal: boolean
-}

@@ -9,7 +9,9 @@
     </h1>
     <h2 class="mb-5 text-lg md:text-2xl">
       Before you slither and slide, take a peek at the
-      <span @click="toggleSwitch(true)" class="underline text-orange-600 font-bold cursor-pointer"
+      <span
+        @click="modalStore.toggleModal('gameRules')"
+        class="underline text-orange-600 font-bold cursor-pointer"
         >rules inside!</span
       >
     </h2>
@@ -26,9 +28,10 @@
 
 <script lang="ts" setup>
 import { useGameStore } from '@/store/gameSettings'
-import { toggleSwitch } from '@/utils/utils'
+import { useModalStore } from '@/store/modalStore'
 
 const gameStore = useGameStore()
+const modalStore = useModalStore()
 
 const welcomeTitleText = `Welcome to the slithering grounds, where cunning and twists know no bounds!`
 const alterTitleText = `Back for more hiss and twist? Let's see if you can top your last tryst!`

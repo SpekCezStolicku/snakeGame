@@ -1,14 +1,3 @@
-import { reactive } from 'vue'
-import type { EventBus } from '@/types/types'
-
-export const state: EventBus = reactive({
-  showModal: false
-})
-
-export function toggleSwitch(value: boolean) {
-  state.showModal = value
-}
-
 export function getRandomNumber(max: number, min: number = 0): number {
   return Math.floor(Math.random() * (max - min + 1)) + min
 }

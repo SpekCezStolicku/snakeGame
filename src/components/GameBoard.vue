@@ -13,23 +13,29 @@
     <Snake />
     <GameLoot />
     <GameInstructions />
-    <GameModal />
+    <GameOver v-if="gameStore.isGameOver" />
+    <GameRules v-if="modalStore.gameRules" />
+    <GameMenu v-if="modalStore.gameMenu" />
   </section>
 </template>
 
 <script setup lang="ts">
+import { onMounted, computed, onUnmounted } from 'vue'
 import Snake from './Snake.vue'
 import GameLoot from './GameLoot.vue'
 import GameInstructions from '@/components/GameInstructions.vue'
-import GameModal from '@/components/GameModal.vue'
-import { onMounted, computed, onUnmounted } from 'vue'
+import GameRules from '@/components/GameRules.vue'
+import GameMenu from '@/components/GameMenu.vue'
+import GameOver from '@/components/GameOver.vue'
 import { useGameStore } from '@/store/gameSettings'
+import { useModalStore } from '../store/modalStore'
 
 // TYPES
 import type { Direction } from '@/types/types'
 
 // STORE
 const gameStore = useGameStore()
+const modalStore = useModalStore()
 const isGameOver = computed(() => gameStore.isGameOver)
 
 // KEYBOARD EVENT

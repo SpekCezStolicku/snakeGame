@@ -1,12 +1,17 @@
 <template>
   <button
-    class="text-lg md:text-xl font-bold text-orange-400 bg-black self-start 4k:self-start lg:self-center m-5 lg:m-10 lg:ml-24 4k:m-0"
+    class="text-md md:text-xl font-bold text-orange-400 bg-black self-start 4k:self-start lg:self-center m-5 lg:m-10 lg:ml-24 4k:m-0 rounded-full"
+    @click="modalStore.toggleModal('gameMenu')"
   >
     Menu
   </button>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useModalStore } from '@/store/modalStore'
+
+const modalStore = useModalStore()
+</script>
 
 <style scoped>
 button {
@@ -14,13 +19,12 @@ button {
   display: inline-block;
   cursor: pointer;
   outline: none;
-  padding: 0.4em 1.2em;
+  padding: 0.5em;
   border: 0;
   vertical-align: middle;
   text-decoration: none;
   text-transform: uppercase;
   border: 2px solid black;
-  border-radius: 0.75em;
   transform-style: preserve-3d;
   transition:
     transform 150ms cubic-bezier(0, 0, 0.58, 1),
