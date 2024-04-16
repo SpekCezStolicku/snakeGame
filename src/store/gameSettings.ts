@@ -1,5 +1,7 @@
 import { defineStore } from 'pinia'
 import { getRandomNumber } from '@/utils/utils'
+import { db } from '@/firebase/config'
+import { collection, addDoc } from 'firebase/firestore'
 
 // TYPES
 import type { Direction, Loot, Position } from '@/types/types'
@@ -12,7 +14,7 @@ export const useGameStore = defineStore('game', {
     level: 1, // Points to level of difficulty
     snakeLength: 3, // Starts with head and body
     score: 0, // Current score
-    player: localStorage.getItem('playerName') || '', // Player name
+    player: localStorage.getItem('playerName') || 'Noname', // Player name
     playerHighscore: parseInt(localStorage.getItem('snakeHighscore') || '0'), //Player's best individual score
     leaderboard: [], // TO DO - firebase
     playground: {
@@ -206,12 +208,23 @@ export const useGameStore = defineStore('game', {
       const head = this.snakePosition[0]
       return this.currentLootPosition.x === head.x && this.currentLootPosition.y === head.y
     },
-    gameOver() {
+    async gameOver() {
       this.isGameOver = true
 
       if (this.score > this.playerHighscore) {
         this.playerHighscore = this.score
         localStorage.setItem('snakeHighscore', this.score.toString())
+        try {
+          const docRef = await addDoc(collection(db, 'scores'), {
+            playerName: this.player,
+            score: this.score,
+            snakeLength: this.snakeLength,
+            timestamp: new Date()
+          })
+          console.log('Document written with ID: ', docRef.id)
+        } catch (e) {
+          console.error('Error adding document: ', e)
+        }
       }
     },
     resetGame() {
