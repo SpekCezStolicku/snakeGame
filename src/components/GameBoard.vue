@@ -16,6 +16,7 @@
     <GameOver v-if="gameStore.isGameOver" />
     <GameRules v-if="modalStore.gameRules" />
     <GameMenu v-if="modalStore.gameMenu" />
+    <LeaderBoard v-if="modalStore.leaderBoard" />
   </section>
 </template>
 
@@ -26,6 +27,7 @@ import GameLoot from './GameLoot.vue'
 import GameInstructions from '@/components/GameInstructions.vue'
 import GameRules from '@/components/GameRules.vue'
 import GameMenu from '@/components/GameMenu.vue'
+import LeaderBoard from './LeaderBoard.vue'
 import GameOver from '@/components/GameOver.vue'
 import { useGameStore } from '@/store/gameSettings'
 import { useModalStore } from '../store/modalStore'

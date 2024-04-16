@@ -1,6 +1,6 @@
 <template>
   <div
-    class="absolute z-[60] text-xl md:text-3xl font-bold md:p-5 bg-white pixel-border animate-easeIn"
+    class="absolute z-[60] text-xl md:text-3xl font-bold md:p-5 bg-white pixel-border animate-easeIn p-2"
     :style="{ width: `${(store.playground.xTiles - 3) * store.tileSize}px` }"
   >
     <slot></slot>

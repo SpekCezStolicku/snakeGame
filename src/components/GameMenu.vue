@@ -19,7 +19,11 @@
         <BaseButton @click="editName = !editName" :styled="false" icon="edit" text="edit" />
       </div>
       <div class="flex-col flex">
-        <BaseButton text="World leaderboard" class="my-5" />
+        <BaseButton
+          text="World leaderboard"
+          class="my-5"
+          @click="modalStore.toggleModal('leaderBoard')"
+        />
         <BaseButton text="Close menu" :danger="true" @click="modalStore.toggleModal('gameMenu')" />
       </div>
     </div>

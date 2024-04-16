@@ -18,3 +18,9 @@ export interface LeaderboardScore {
   name: string
   score: number
 }
+
+export interface Score {
+  playerName: string
+  score: number
+  snakeLength: number
+}
