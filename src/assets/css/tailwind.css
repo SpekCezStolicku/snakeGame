@@ -14,7 +14,8 @@
       6px 0 black,
       -6px 0 black,
       0 -6px black,
-      0 6px black;
+      0 6px black,
+      inset -6px -6px 4px 0px #ffe79a;
     margin: 6px auto;
   }
 }

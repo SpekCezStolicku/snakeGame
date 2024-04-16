@@ -246,6 +246,10 @@ export const useGameStore = defineStore('game', {
         return
       }
       this.tileSize = baseTileSize
+    },
+    setPlayerName(name: string) {
+      this.player = name
+      localStorage.setItem('playerName', name)
     }
   }
 })

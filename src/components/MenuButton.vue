@@ -1,6 +1,6 @@
 <template>
   <button
-    class="text-md md:text-xl font-bold text-orange-400 bg-black self-start 4k:self-start lg:self-center m-5 lg:m-10 lg:ml-24 4k:m-0 rounded-full"
+    class="text-sm md:text-lg font-bold text-orange-400 bg-black self-start 4k:self-start lg:self-center m-5 lg:m-10 lg:ml-24 4k:m-0 rounded-full"
     @click="modalStore.toggleModal('gameMenu')"
   >
     Menu
@@ -43,7 +43,7 @@ button::before {
   background: #f97316;
   border-radius: inherit;
   box-shadow:
-    0 0 0 2px #f97316,
+    0 0 0 1px #f97316,
     0 0.425em 0 0 #fde185;
   transform: translate3d(0, 0.35em, -1em);
   transition:

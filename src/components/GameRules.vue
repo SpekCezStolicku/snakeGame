@@ -39,18 +39,20 @@
           Size: <span class="font-bold">{{ item.bodyIncrease }}</span>
         </p>
       </div>
-      <button
+      <BaseButton
+        text="Nothing can stop me now!"
+        :proceed="true"
         @click="modalStore.toggleModal('gameRules')"
-        class="px_button bg-white mt-4 px-3 text-xs md:text-xl"
+        class="mt-4 text-xs md:text-xl w-full"
       >
-        Nothing can stop me now!
-      </button>
+      </BaseButton>
     </div>
   </GameModal>
 </template>
 
 <script setup lang="ts">
 import GameModal from './GameModal.vue'
+import BaseButton from './forms/BaseButton.vue'
 import { useGameStore } from '@/store/gameSettings'
 import { useModalStore } from '@/store/modalStore'
 import { invertNumber } from '@/utils/utils'

@@ -29,7 +29,12 @@
           highscore
         }}</span>
       </p>
-      <button class="px_button mx-auto mt-5 px-3" @click="restartGame">Restart Game</button>
+      <BaseButton
+        text="Restart Game"
+        :danger="true"
+        class="mx-auto mt-5"
+        @click="restartGame"
+      ></BaseButton>
     </div>
   </GameModal>
 </template>
@@ -38,6 +43,7 @@
 import { computed } from 'vue'
 import { useGameStore } from '@/store/gameSettings'
 import GameModal from '@/components/GameModal.vue'
+import BaseButton from './forms/BaseButton.vue'
 
 const store = useGameStore()
 
