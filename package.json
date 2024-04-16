@@ -13,6 +13,8 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "axios": "^1.6.8",
+    "firebase": "^10.11.0",
     "pinia": "^2.1.7",
     "vue": "^3.4.21"
   },
