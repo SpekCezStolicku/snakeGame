@@ -1,5 +1,5 @@
 <template>
-  <GameModal>
+  <GameModal class="px-3">
     <div>
       <h1 class="text-2xl md:text-3xl mb-3 w-fit mx-auto">Snake menu</h1>
       <div v-if="gameStore.player === '' || editName" class="flex items-center justify-center">

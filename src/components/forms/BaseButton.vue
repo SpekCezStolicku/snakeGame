@@ -1,6 +1,6 @@
 <template>
   <button
-    class="text-sm md:text-lg flex items-center justify-center mx-3"
+    class="text-sm md:text-lg flex items-center justify-center"
     :class="{
       'pixel-btn': props.styled,
       'pixel-btn--reset': props.danger,
