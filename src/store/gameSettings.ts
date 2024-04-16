@@ -211,6 +211,10 @@ export const useGameStore = defineStore('game', {
     async gameOver() {
       this.isGameOver = true
 
+      if (localStorage.getItem('firstVisit') === null) {
+        localStorage.setItem('firstVisit', 'true')
+      }
+
       if (this.score > this.playerHighscore) {
         this.playerHighscore = this.score
         localStorage.setItem('snakeHighscore', this.score.toString())

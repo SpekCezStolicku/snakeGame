@@ -1,10 +1,10 @@
 <template>
-  <div class="text-sm md:text-xl m-5">
-    <label class="font-bold mr-3" :for="props.labelFor">{{ props.label }}</label>
+  <div class="text-sm md:text-xl my-2 md:my-5 mr-3 md:mr-4 flex w-full items-center">
+    <label class="font-bold mr-2" :for="props.labelFor">{{ props.label }}</label>
     <input
       :id="props.labelFor"
       :placeholder="props.placeholder"
-      class="pixel-input text-lg"
+      class="pixel-input text-sm :text-lg w-full"
       :type="props.inputType"
       v-model="inputModel"
       @input="updateValue"
