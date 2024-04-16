@@ -28,12 +28,6 @@ const containerWidth = computed(() => gameStore.tileSize * gameStore.playground.
 const crownWidth = computed(() => gameStore.tileSize + 8)
 
 // Change color every level
-const levelColors = [
-  'text-red-800',
-  'text-blue-600',
-  'text-green-600',
-  'text-yellow-800',
-  'text-purple-600'
-]
+const levelColors = ['text-red-900', 'text-blue-700', 'text-green-800', 'text-purple-700']
 const levelColor = computed(() => levelColors[(gameStore.level % levelColors.length) - 1])
 </script>
