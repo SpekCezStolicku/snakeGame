@@ -13,6 +13,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@firebase/firestore": "^4.6.0",
     "axios": "^1.6.8",
     "firebase": "^10.11.0",
     "pinia": "^2.1.7",
