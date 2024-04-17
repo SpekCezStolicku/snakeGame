@@ -115,9 +115,10 @@ export const useGameStore = defineStore('game', {
         if (this.currentLoot!.snakeSpeed) {
           const temporarySpeedChange = this.currentLoot!.snakeSpeed
           this.currentSpeed += temporarySpeedChange
-
+          this.resetMovementInterval()
           setTimeout(() => {
             this.currentSpeed -= temporarySpeedChange
+            this.resetMovementInterval()
           }, 3000)
         }
         this.getRandomLoot()
@@ -162,17 +163,20 @@ export const useGameStore = defineStore('game', {
         return
       }
       this.gameStarted = true
+      this.resetMovementInterval()
       this.getRandomLoot()
-
-      clearInterval(this.intervalId)
+    },
+    resetMovementInterval() {
+      clearInterval(this.intervalId) // Zrušiť predchádzajúci interval
       this.intervalId = window.setInterval(() => {
         if (this.gameStarted) {
           this.moveSnake()
         } else {
-          clearInterval(this.intervalId)
+          clearInterval(this.intervalId) // Pre istotu zrušiť interval ak hra nie je aktívna
         }
-      }, this.currentSpeed)
+      }, this.currentSpeed) // Použitie aktuálnej rýchlosti
     },
+
     // Player score logic
     updateScore(newScore: number) {
       this.score = newScore
@@ -185,6 +189,7 @@ export const useGameStore = defineStore('game', {
           this.gameSpeed - this.gameSpeed * 0.1 * (this.level - 1),
           this.minimumSpeed
         )
+        this.resetMovementInterval()
       }
 
       if (newScore > this.playerHighscore) {
