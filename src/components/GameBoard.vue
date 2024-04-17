@@ -10,6 +10,7 @@
       gridTemplateRows: `repeat(${gameStore.playground.yTiles}, ${gameStore.tileSize}px)`
     }"
   >
+    <p>{{ gameStore.currentSpeed }}</p>
     <Snake />
     <GameLoot />
     <GameInstructions />

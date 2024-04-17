@@ -76,7 +76,7 @@ export const useGameStore = defineStore('game', {
           newPosition.x += 1
           break
       }
-      // Collision with borders
+
       if (
         newPosition.x < 1 ||
         newPosition.x > this.playground.xTiles ||
@@ -109,19 +109,22 @@ export const useGameStore = defineStore('game', {
         }
       }
 
-      while (this.snakePosition.length > this.snakeLength) {
-        this.snakePosition.pop()
-      }
-
       if (this.isSnakeOnLoot()) {
         this.updateScore(this.score + this.currentLoot!.score)
         this.snakeLength += this.currentLoot!.bodyIncrease
         if (this.currentLoot!.snakeSpeed) {
           const temporarySpeedChange = this.currentLoot!.snakeSpeed
           this.currentSpeed += temporarySpeedChange
-          setTimeout(() => (this.currentSpeed -= temporarySpeedChange), 3000)
+
+          setTimeout(() => {
+            this.currentSpeed -= temporarySpeedChange
+          }, 3000)
         }
         this.getRandomLoot()
+      } else {
+        if (this.snakePosition.length > this.snakeLength) {
+          this.snakePosition.pop()
+        }
       }
 
       this.directionChanges = this.directionChanges.filter((dc) =>
@@ -130,7 +133,15 @@ export const useGameStore = defineStore('game', {
     },
     setDirection(newDirection: Direction) {
       const head = this.snakePosition[0]
-      this.directionChanges.push({ x: head.x, y: head.y, direction: newDirection })
+      const existingChangeIndex = this.directionChanges.findIndex(
+        (dc) => dc.x === head.x && dc.y === head.y
+      )
+
+      if (existingChangeIndex !== -1) {
+        this.directionChanges[existingChangeIndex].direction = newDirection
+      } else {
+        this.directionChanges.push({ x: head.x, y: head.y, direction: newDirection })
+      }
       this.nextDirection = newDirection
     },
 
@@ -162,7 +173,7 @@ export const useGameStore = defineStore('game', {
         }
       }, this.currentSpeed)
     },
-    // Player highscore logic
+    // Player score logic
     updateScore(newScore: number) {
       this.score = newScore
 
