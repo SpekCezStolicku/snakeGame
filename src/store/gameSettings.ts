@@ -33,12 +33,12 @@ export const useGameStore = defineStore('game', {
     directionChanges: [] as { x: number; y: number; direction: Direction }[],
     loot: [
       { name: 'Apple', image: 'apple', score: 10, bodyIncrease: 0, snakeSpeed: 0 },
-      { name: 'Banana', image: 'banana', score: 20, bodyIncrease: 1, snakeSpeed: 10 },
-      { name: 'Cherries', image: 'cherries', score: 30, bodyIncrease: 2, snakeSpeed: 0 },
-      { name: 'Grape', image: 'grape', score: 40, bodyIncrease: 1, snakeSpeed: -20 },
-      { name: 'Lemon', image: 'lemon', score: 50, bodyIncrease: 1, snakeSpeed: -30 },
-      { name: 'Peach', image: 'peach', score: 60, bodyIncrease: 1, snakeSpeed: 10 },
-      { name: 'Melon', image: 'melon', score: 70, bodyIncrease: 3, snakeSpeed: 10 },
+      { name: 'Banana', image: 'banana', score: 20, bodyIncrease: 10, snakeSpeed: 10 },
+      { name: 'Cherries', image: 'cherries', score: 30, bodyIncrease: 20, snakeSpeed: 0 },
+      { name: 'Grape', image: 'grape', score: 40, bodyIncrease: 10, snakeSpeed: -20 },
+      { name: 'Lemon', image: 'lemon', score: 50, bodyIncrease: 10, snakeSpeed: -30 },
+      { name: 'Peach', image: 'peach', score: 60, bodyIncrease: 10, snakeSpeed: 10 },
+      { name: 'Melon', image: 'melon', score: 70, bodyIncrease: 30, snakeSpeed: 10 },
       { name: 'Pineapple', image: 'pineapple', score: 80, bodyIncrease: 2, snakeSpeed: -10 },
       { name: 'Strawberry', image: 'strawberry', score: 90, bodyIncrease: 3, snakeSpeed: 0 }
     ] as Loot[],
@@ -46,22 +46,29 @@ export const useGameStore = defineStore('game', {
     currentLoot: null as Loot | null,
     gameStarted: false,
     isGameOver: false,
-    intervalId: undefined as number | undefined
+    intervalId: undefined as number | undefined,
+    unpredictableMove: null as null | Position
   }),
   actions: {
     moveSnake() {
       if (this.isGameOver) return
 
+      if (this.unpredictableMove && this.nextDirection) {
+        const foundIndex = this.directionChanges.findIndex(
+          (element) => element === this.unpredictableMove
+        )
+        this.directionChanges[foundIndex].direction = this.nextDirection
+
+        this.unpredictableMove = null
+      }
+
       if (this.nextDirection && this.nextDirection !== this.getOppositeDirection(this.direction)) {
-        const head = this.snakePosition[0]
-        this.directionChanges.push({ x: head.x, y: head.y, direction: this.nextDirection })
         this.direction = this.nextDirection
         this.nextDirection = null
       }
 
       const head = this.snakePosition[0]
       const newPosition = { x: head.x, y: head.y, direction: this.direction }
-
       switch (this.direction) {
         case 'UP':
           newPosition.y -= 1
@@ -89,19 +96,28 @@ export const useGameStore = defineStore('game', {
 
       this.snakePosition.unshift(newPosition)
 
+      // SELF BITE LOGIC
       if (
         this.snakePosition.some(
           (segment, index) =>
             index !== 0 && segment.x === newPosition.x && segment.y === newPosition.y
         )
       ) {
+        const existingChangeIndex = this.directionChanges.findIndex(
+          (dc) => dc.x === newPosition.x && dc.y === newPosition.y
+        )
+        if (existingChangeIndex !== -1) {
+          this.directionChanges[existingChangeIndex].direction = this.direction
+
+          this.unpredictableMove = this.directionChanges[existingChangeIndex]
+        }
         const segmentIndex = this.snakePosition.findIndex(
           (segment, index) =>
             index !== 0 && segment.x === newPosition.x && segment.y === newPosition.y
         )
         const removedSegments = this.snakePosition.length - segmentIndex
         this.snakePosition.splice(segmentIndex, removedSegments)
-        this.updateScore(this.score - 50 * removedSegments)
+        this.updateScore(this.score - 1 * removedSegments)
         this.snakeLength -= removedSegments
         if (this.score < 0) {
           this.gameOver()
@@ -128,21 +144,14 @@ export const useGameStore = defineStore('game', {
         }
       }
 
+      // Remove deprecated items in array
       this.directionChanges = this.directionChanges.filter((dc) =>
         this.snakePosition.some((segment) => segment.x === dc.x && segment.y === dc.y)
       )
     },
     setDirection(newDirection: Direction) {
       const head = this.snakePosition[0]
-      const existingChangeIndex = this.directionChanges.findIndex(
-        (dc) => dc.x === head.x && dc.y === head.y
-      )
-
-      if (existingChangeIndex !== -1) {
-        this.directionChanges[existingChangeIndex].direction = newDirection
-      } else {
-        this.directionChanges.push({ x: head.x, y: head.y, direction: newDirection })
-      }
+      this.directionChanges.push({ x: head.x, y: head.y, direction: newDirection })
       this.nextDirection = newDirection
     },
 
