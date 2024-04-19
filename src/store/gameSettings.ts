@@ -16,7 +16,6 @@ export const useGameStore = defineStore('game', {
     score: 0, // Current score
     player: localStorage.getItem('playerName') || 'Johnny', // Player name
     playerHighscore: parseInt(localStorage.getItem('snakeHighscore') || '0'), //Player's best individual score
-    leaderboard: [], // TO DO - firebase
     playground: {
       xTiles: 31,
       yTiles: 31
@@ -176,14 +175,14 @@ export const useGameStore = defineStore('game', {
       this.getRandomLoot()
     },
     resetMovementInterval() {
-      clearInterval(this.intervalId) // Zrušiť predchádzajúci interval
+      clearInterval(this.intervalId)
       this.intervalId = window.setInterval(() => {
         if (this.gameStarted) {
           this.moveSnake()
         } else {
-          clearInterval(this.intervalId) // Pre istotu zrušiť interval ak hra nie je aktívna
+          clearInterval(this.intervalId)
         }
-      }, this.currentSpeed) // Použitie aktuálnej rýchlosti
+      }, this.currentSpeed)
     },
 
     // Player score logic
@@ -240,7 +239,7 @@ export const useGameStore = defineStore('game', {
         localStorage.setItem('firstVisit', 'true')
       }
 
-      if (this.score > this.playerHighscore) {
+      if (this.score > this.playerHighscore || localStorage.getItem('snakeHighscore') === null) {
         this.playerHighscore = this.score
         localStorage.setItem('snakeHighscore', this.score.toString())
         try {
@@ -250,9 +249,9 @@ export const useGameStore = defineStore('game', {
             snakeLength: this.snakeLength,
             timestamp: new Date()
           })
-          console.log('Document written with ID: ', docRef.id)
+          console.log('Score written with ID: ', docRef.id)
         } catch (e) {
-          console.error('Error adding document: ', e)
+          console.error('Error adding score: ', e)
         }
       }
     },
