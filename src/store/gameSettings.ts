@@ -33,12 +33,12 @@ export const useGameStore = defineStore('game', {
     directionChanges: [] as { x: number; y: number; direction: Direction }[],
     loot: [
       { name: 'Apple', image: 'apple', score: 10, bodyIncrease: 0, snakeSpeed: 0 },
-      { name: 'Banana', image: 'banana', score: 20, bodyIncrease: 10, snakeSpeed: 10 },
-      { name: 'Cherries', image: 'cherries', score: 30, bodyIncrease: 20, snakeSpeed: 0 },
-      { name: 'Grape', image: 'grape', score: 40, bodyIncrease: 10, snakeSpeed: -20 },
-      { name: 'Lemon', image: 'lemon', score: 50, bodyIncrease: 10, snakeSpeed: -30 },
-      { name: 'Peach', image: 'peach', score: 60, bodyIncrease: 10, snakeSpeed: 10 },
-      { name: 'Melon', image: 'melon', score: 70, bodyIncrease: 30, snakeSpeed: 10 },
+      { name: 'Banana', image: 'banana', score: 20, bodyIncrease: 1, snakeSpeed: 10 },
+      { name: 'Cherries', image: 'cherries', score: 30, bodyIncrease: 2, snakeSpeed: 0 },
+      { name: 'Grape', image: 'grape', score: 40, bodyIncrease: 1, snakeSpeed: -20 },
+      { name: 'Lemon', image: 'lemon', score: 50, bodyIncrease: 1, snakeSpeed: -30 },
+      { name: 'Peach', image: 'peach', score: 60, bodyIncrease: 1, snakeSpeed: 10 },
+      { name: 'Melon', image: 'melon', score: 70, bodyIncrease: 3, snakeSpeed: 10 },
       { name: 'Pineapple', image: 'pineapple', score: 80, bodyIncrease: 2, snakeSpeed: -10 },
       { name: 'Strawberry', image: 'strawberry', score: 90, bodyIncrease: 3, snakeSpeed: 0 }
     ] as Loot[],
@@ -117,7 +117,7 @@ export const useGameStore = defineStore('game', {
         )
         const removedSegments = this.snakePosition.length - segmentIndex
         this.snakePosition.splice(segmentIndex, removedSegments)
-        this.updateScore(this.score - 1 * removedSegments)
+        this.updateScore(this.score - 50 * removedSegments)
         this.snakeLength -= removedSegments
         if (this.score < 0) {
           this.gameOver()
