@@ -1,7 +1,7 @@
 <template>
   <img
     v-if="gameStore.currentLoot !== null"
-    :src="`/src/assets/images/loot/${gameStore.currentLoot.image}.png`"
+    :src="`/loot/${gameStore.currentLoot.image}.png`"
     alt="Loot"
     :style="{
       maxWidth: `${gameStore.tileSize}px`,

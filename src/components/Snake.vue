@@ -13,7 +13,7 @@
     ]"
   >
     <img
-      :src="`/src/assets/images/${getSegmentImage(index)}.png`"
+      :src="`/snake/${getSegmentImage(index)}.png`"
       alt="Snake Segment"
       :style="index === 0 ? { width: `${gameStore.tileSize + gameStore.tileSize / 2}px` } : ''"
       :class="index === 0 ? `` : `overflow-hidden`"
