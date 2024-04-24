@@ -239,7 +239,10 @@ export const useGameStore = defineStore('game', {
         localStorage.setItem('firstVisit', 'true')
       }
 
-      if (this.score > this.playerHighscore || localStorage.getItem('snakeHighscore') === null) {
+      if (
+        (this.score > 0 && this.score > this.playerHighscore) ||
+        (this.score > 0 && localStorage.getItem('snakeHighscore') === null)
+      ) {
         this.playerHighscore = this.score
         localStorage.setItem('snakeHighscore', this.score.toString())
         try {

@@ -13,7 +13,7 @@
     ]"
   >
     <img
-      :src="`/snake/${getSegmentImage(index)}.png`"
+      :src="getSrc(getSegmentImage(index))"
       alt="Snake Segment"
       :style="index === 0 ? { width: `${gameStore.tileSize + gameStore.tileSize / 2}px` } : ''"
       :class="index === 0 ? `` : `overflow-hidden`"
@@ -40,6 +40,9 @@ function getSegmentImage(index: number) {
   return body
 }
 
+const getSrc = (src: string) => {
+  return new URL(`/public/snake/${src}.png`, import.meta.url).href
+}
 function getSegmentStyle(segment: Position) {
   let rotation = 0
   const change = gameStore.directionChanges.find((dc) => dc.x === segment.x && dc.y === segment.y)

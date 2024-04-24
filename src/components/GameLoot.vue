@@ -1,7 +1,7 @@
 <template>
   <img
     v-if="gameStore.currentLoot !== null"
-    :src="`/loot/${gameStore.currentLoot.image}.png`"
+    :src="getSrc(gameStore.currentLoot.image)"
     alt="Loot"
     :style="{
       maxWidth: `${gameStore.tileSize}px`,
@@ -16,4 +16,7 @@
 import { useGameStore } from '@/store/gameSettings'
 
 const gameStore = useGameStore()
+const getSrc = (src: string) => {
+  return new URL(`/public/loot/${src}.png`, import.meta.url).href
+}
 </script>

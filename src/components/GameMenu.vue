@@ -12,7 +12,7 @@
         />
       </div>
       <div v-else class="flex justify-center items-center my-5 text-xl md:text-2xl">
-        <img class="mr-2 w-8 md:w-10" src="/src/assets//images/snake.png" alt="snake" />
+        <img class="mr-2 w-8 md:w-10" src="@/assets/images/snake.png" alt="snake" />
         <p class="font-bold mr-5 text-gradient from-orange-500 to-red-800">
           {{ gameStore.player }}
         </p>

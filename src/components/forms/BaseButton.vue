@@ -7,12 +7,7 @@
       'pixel-btn--proceed': props.proceed
     }"
   >
-    <img
-      class="md:w-7 w-5 mr-2"
-      v-if="props.icon"
-      :src="`/src/assets/images/${props.icon}.png`"
-      :alt="props.icon"
-    />
+    <img class="md:w-7 w-5 mr-2" v-if="props.icon" :src="getSrc(props.icon)" :alt="props.icon" />
     {{ props.text }}
   </button>
 </template>
@@ -25,6 +20,10 @@ const props = defineProps({
   icon: String,
   styled: { type: Boolean, default: true }
 })
+
+const getSrc = (src: string) => {
+  return new URL(`/src/assets/images/${src}.png`, import.meta.url).href
+}
 </script>
 
 <style scoped>
