@@ -2,10 +2,10 @@
   <GameModal>
     <div class="text-sm md:text-xl">
       <div class="flex items-center justify-center mx-auto mb-5">
-        <img src="/src//assets//images/leaderSnake.png" alt="leader snake" class="w-6 md:w-8" />
+        <img src="/src/assets/images/leaderSnake.png" alt="leader snake" class="w-6 md:w-8" />
         <h1 class="font-bold text-2xl md:text-3xl underline">Top Scores</h1>
         <img
-          src="/src//assets//images/leaderSnake.png"
+          src="/src/assets//images/leaderSnake.png"
           alt="leader snake"
           class="w-6 md:w-8 scale-x-[-1]"
         />
