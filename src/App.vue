@@ -29,7 +29,7 @@ onMounted(() => {
 
       <!-- GAMEBOY -->
       <div
-        class="flex flex-col mt-2 flex-wrap 4k:flex-col lg:flex-row items-center game-board p-2 md:p-5 4k:p-8 bg-repeat bg-amber-300 bg-[url('/src/assets/images/noise.png')]"
+        class="flex flex-col mt-2 flex-wrap 4k:flex-col w-fit lg:flex-row items-center game-board p-2 md:p-5 4k:p-8 bg-repeat bg-amber-300 bg-[url('/src/assets/images/noise.png')]"
       >
         <div>
           <ScoreBoard />
