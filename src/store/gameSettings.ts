@@ -277,7 +277,7 @@ export const useGameStore = defineStore('game', {
     adjustTileSize(screenWidth: number, screenHeight: number) {
       const baseTileSize = 20
       let baseBoardWidth = this.playground.xTiles * this.tileSize + this.tileSize * 2
-      let baseBoardHeight = this.playground.yTiles * this.tileSize + this.tileSize * 14
+      let baseBoardHeight = this.playground.yTiles * this.tileSize + this.tileSize * 8.5
 
       if (screenWidth < baseBoardWidth || screenHeight < baseBoardHeight) {
         this.tileSize = 10
@@ -285,7 +285,7 @@ export const useGameStore = defineStore('game', {
         baseBoardWidth = this.playground.xTiles * newTileSize + newTileSize * 2
         baseBoardHeight = this.playground.yTiles * newTileSize + newTileSize * 14
         if (screenWidth < baseBoardWidth || screenHeight < baseBoardHeight) {
-          this.tileSize = 8
+          this.tileSize = 9
         }
         return
       }

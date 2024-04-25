@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="!gameStore.gameStarted"
-    class="absolute z-50 text-xl md:text-3xl bg-white px_border mx-auto text-center"
+    class="absolute mac-center z-50 text-xl md:text-3xl bg-white px_border mx-auto text-center"
     :style="{ width: `${(gameStore.playground.xTiles - 5) * gameStore.tileSize}px` }"
   >
     <h1 class="font-bold text-gradient from-green-600 to-teal-800 mb-4">

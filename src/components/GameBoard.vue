@@ -1,7 +1,7 @@
 <template>
   <section
     id="board"
-    class="grid game-board mx-auto text-center mb-5 md:mb-10 z-0 place-items-center bg-orange-100"
+    class="grid game-board relative mx-auto mb-5 md:mb-10 z-0 place-items-center bg-orange-100"
     :class="{ 'animate-wiggle': isGameOver }"
     :style="{
       width: `${gameStore.tileSize * gameStore.playground.xTiles}px`,

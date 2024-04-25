@@ -10,7 +10,8 @@ module.exports = {
   theme: {
     extend: {
       screens: {
-        '4k': '2500px'
+        '4k': '2500px',
+        retina: { raw: '(-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)' }
       },
       keyframes: {
         wiggle: {
