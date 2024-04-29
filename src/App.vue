@@ -31,11 +31,13 @@ onMounted(() => {
       <div
         class="flex flex-col mt-2 flex-wrap 4k:flex-col w-fit lg:flex-row items-center game-board p-2 md:p-5 4k:p-8 bg-repeat bg-amber-300 bg-[url('/src/assets/images/noise.png')]"
       >
-        <div>
+        <div class="z-50">
           <ScoreBoard />
           <GameBoard />
         </div>
-        <div class="flex lg:flex-col-reverse flex-row 4k:flex-row justify-evenly items-center">
+        <div
+          class="flex lg:flex-col-reverse flex-row 4k:flex-row justify-evenly items-center z-[1]"
+        >
           <GameController />
           <MenuButton />
         </div>

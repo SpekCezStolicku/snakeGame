@@ -23,7 +23,7 @@
       >
         <div class="flex items-center justify-start">
           <img
-            :src="`/src/assets/images/loot/${item.image}.png`"
+            :src="getSrc(item.image)"
             :width="gameStore.tileSize - 5"
             class="h-fit mr-2"
             :alt="item.name"
@@ -59,4 +59,8 @@ import { invertNumber } from '@/utils/utils'
 
 const gameStore = useGameStore()
 const modalStore = useModalStore()
+
+const getSrc = (src: string) => {
+  return new URL(`/public/loot/${src}.png`, import.meta.url).href
+}
 </script>
