@@ -23,7 +23,7 @@ https://spekcezstolicku.github.io/snakeGame/
 Join the fun and test your reflexes and strategy with our modernized version of Snake. Whether you’re looking to kill time or aiming to top the global leaderboards, this game promises not to disappoint.
 
 
-## Recommendedation
+## Recommendation
 
 ### Install `nvm` and use `node` version `21+`
 
