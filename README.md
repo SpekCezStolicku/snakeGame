@@ -23,17 +23,9 @@ https://spekcezstolicku.github.io/snakeGame/
 Join the fun and test your reflexes and strategy with our modernized version of Snake. Whether you’re looking to kill time or aiming to top the global leaderboards, this game promises not to disappoint.
 
 
-## Recommended IDE Setup
+## Recommendedation
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+### Install `nvm` and use `node` version `21+`
 
 ## Project Setup
 
