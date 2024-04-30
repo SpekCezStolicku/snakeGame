@@ -25,6 +25,7 @@
           <img
             :src="getSrc(item.image)"
             :width="gameStore.tileSize - 5"
+            :height="gameStore.tileSize - 5"
             class="h-fit mr-2"
             :alt="item.name"
           />
