@@ -1,6 +1,6 @@
 # Snake Game with Unique Twists
 
-Welcome to our custom Snake game, designed to challenge and entertain with a fresh take on the classic arcade favorite. This game is built using Vue 3 and TypeScript with the Composition API, optimized with Vite for swift performance. Our styling is powered by Tailwind CSS, ensuring a sleek, modern look.
+Welcome to our custom Snake game, designed to challenge and entertain with a fresh take on the classic arcade favorite. This game is built using Vue 3 and TypeScript with the Composition API, optimized with Vite for swift performance. Our styling is powered by Tailwind CSS, ensuring a sleek, classic arcade look.
 
 ## Ready to play?
 
