@@ -12,7 +12,7 @@
       </div>
       <div class="grid grid-cols-3 border-b-2 mb-2 font-normal">
         <p class="text-start">Player name</p>
-        <p>Total score</p>
+        <p class="text-center">Total score</p>
         <p class="text-end">Snake length</p>
       </div>
       <div class="grid grid-cols-3" v-for="(score, index) in scores" :key="index">
@@ -33,11 +33,11 @@
           />
           {{ score.playerName }}
         </p>
-        <p>{{ score.score }}</p>
+        <p class="text-center">{{ score.score }}</p>
         <p class="text-right">{{ score.snakeLength }}</p>
       </div>
       <BaseButton
-        class="mt-4"
+        class="mt-4 w-full"
         text="I can do better"
         @click="modalStore.toggleModal('leaderBoard')"
       />
