@@ -46,7 +46,8 @@ export const useGameStore = defineStore('game', {
     gameStarted: false,
     isGameOver: false,
     intervalId: undefined as number | undefined,
-    unpredictableMove: null as null | Position
+    unpredictableMove: null as null | Position,
+    isPaused: false
   }),
   actions: {
     moveSnake() {
@@ -294,6 +295,16 @@ export const useGameStore = defineStore('game', {
     setPlayerName(name: string) {
       this.player = name
       localStorage.setItem('playerName', name)
+    },
+    pauseGame() {
+      this.isPaused = true
+      clearInterval(this.intervalId)
+    },
+    continueGame() {
+      if (this.isPaused) {
+        this.isPaused = false
+        this.resetMovementInterval()
+      }
     }
   }
 })
