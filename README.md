@@ -1,5 +1,13 @@
 # Snake Game with Unique Twists
 
+![Vue 3](https://img.shields.io/badge/Vue-3.x-4FC08D?logo=vue.js)
+![TypeScript](https://img.shields.io/badge/TypeScript-4.x-3178C6?logo=typescript)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.x-38B2AC?logo=tailwind-css)
+![Vite](https://img.shields.io/badge/Vite-4.x-646CFF?logo=vite)
+![Firebase](https://img.shields.io/badge/Firebase-Hosting-FFCA28?logo=firebase)
+![MIT License](https://img.shields.io/github/license/SpekCezStolicku/snakeGame)
+![GitHub Stars](https://img.shields.io/github/stars/SpekCezStolicku/snakeGame?style=social)
+
 Welcome to our custom Snake game, designed to challenge and entertain with a fresh take on the classic arcade favorite. This game is built using Vue 3 and TypeScript with the Composition API, optimized with Vite for swift performance. Our styling is powered by Tailwind CSS, ensuring a sleek, classic arcade look.
 
 ## Ready to play?
